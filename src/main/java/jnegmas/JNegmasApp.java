@@ -1,26 +1,21 @@
 package jnegmas;
 
+import py4j.ClientServer;
 import py4j.GatewayServer;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
-import java.util.HashMap;
 
 public class JNegmasApp {
 
-    private static final int DEFAULT_JAVA_PORT = 25337;
-    private static final int DEFAULT_PYTHON_PORT = 25336;
+    private static final int DEFAULT_JAVA_PORT = 25333;
+    private static final int DEFAULT_PYTHON_PORT = 25334;
 
-    public Object create(String class_name, HashMap<String, Object> params){
+    public Object create(String class_name){
         System.out.format("Creating %s\n", class_name);
         try {
             Class<?> clazz = Class.forName(class_name);
-            if (params != null) {
-                PyReadable instance = (PyReadable) clazz.newInstance();
-                instance.fromMap(params);
-                return instance;
-            }
             return clazz.newInstance();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
@@ -32,10 +27,6 @@ public class JNegmasApp {
         return null;
     }
 
-    public Object create(String class_name){
-        return create(class_name, null);
-    }
-
     public static void usage(){
         System.out.print("Usage: jnemas [--die-on-exit/--doe/-d] [--port/-p int]\n");
     }
@@ -43,12 +34,17 @@ public class JNegmasApp {
     public static void main(String[] args) {
         int port = DEFAULT_JAVA_PORT;
         boolean dieOnBrokenPipe=false;
+        boolean use_client_server=true;
         System.out.format("Received options: ");
         for (int i = 0; i < args.length; i++) {
             String opt = args[i];
             System.out.format("%s ", opt);
             if (opt.equals("--die-on-exit") || opt.equals("--doe") || opt.equals("-d")) {
                 dieOnBrokenPipe = true;
+            } else if (opt.equals("--client-server") || opt.equals("--single-thread")){
+                use_client_server = true;
+            } else if (opt.equals("--gateway") || opt.equals("--multiple-threads")){
+                use_client_server = false;
             } else if (opt.equals("-p") || opt.equals("--port")){
                 if (i < args.length - 1) {
                     try {
@@ -73,11 +69,17 @@ public class JNegmasApp {
         }
         System.out.format("\n");
         JNegmasApp app = new JNegmasApp();
-        // app is now the gateway.entry_point
-        GatewayServer server = new GatewayServer(app, port);
-        server.start();
-        int listening_port = server.getListeningPort();
-        System.out.format("Gateway to NegMAS started at port %d listening to port %d\n", port, listening_port);
+        if (use_client_server) {
+            // app is now the gateway.entry_point
+            ClientServer server = new ClientServer(app);
+            server.startServer();
+            System.out.format("Gateway to NegMAS started at port %d (single-thread)\n", port);
+        } else{
+            GatewayServer server = new GatewayServer(app, port);
+            int listening_port = server.getListeningPort();
+            System.out.format("Gateway to NegMAS started at port %d listening to port %d (multiple-threads)\n", port, listening_port);
+        }
+
 
         if (dieOnBrokenPipe) {
             /* Exit on EOF or broken pipe.  This ensures that the server dies
