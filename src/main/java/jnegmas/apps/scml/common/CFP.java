@@ -25,12 +25,12 @@ public class CFP implements PyReadable {
     public String id;
 
     public CFP(HashMap<String, Object> dict) {
-        from_map(dict);
+        fromMap(dict);
     }
 
 
     @Override
-    public void from_map(HashMap<String, Object> dict) {
+    public void fromMap(HashMap<String, Object> dict) {
         is_buy = (boolean) dict.get("is_buy");
         publisher = (String) dict.get("publisher");
         product = (int) dict.get("product");
@@ -52,7 +52,7 @@ public class CFP implements PyReadable {
     }
 
     @Override
-    public HashMap<String, Object> to_map() {
+    public HashMap<String, Object> toMap() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("is_buy", is_buy);
         map.put("publisher", publisher);

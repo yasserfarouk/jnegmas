@@ -5,7 +5,7 @@ import jnegmas.apps.scml.common.Job;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public interface PySimulator {
+public interface PyFactorySimulator {
 
     Optional<Integer> max_storage();
 
