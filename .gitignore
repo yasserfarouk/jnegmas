@@ -4,3 +4,5 @@ build
 .idea
 out
 py4j
+classes/
+out/
