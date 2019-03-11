@@ -5,16 +5,22 @@ import py4j.GatewayServer;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.util.HashMap;
 
 public class JNegmasApp {
 
     private static final int DEFAULT_JAVA_PORT = 25337;
     private static final int DEFAULT_PYTHON_PORT = 25336;
 
-    public Object create(String class_name){
+    public Object create(String class_name, HashMap<String, Object> params){
         System.out.format("Creating %s\n", class_name);
         try {
             Class<?> clazz = Class.forName(class_name);
+            if (params != null) {
+                PyReadable instance = (PyReadable) clazz.newInstance();
+                instance.fromMap(params);
+                return instance;
+            }
             return clazz.newInstance();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
@@ -24,6 +30,10 @@ public class JNegmasApp {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public Object create(String class_name){
+        return create(class_name, null);
     }
 
     public static void usage(){

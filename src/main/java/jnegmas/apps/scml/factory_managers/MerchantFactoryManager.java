@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Optional;
 
-public class GreedyFactoryManager implements FactoryManager {
+public class MerchantFactoryManager implements FactoryManager {
     @Override
     public void init() {
 

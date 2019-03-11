@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Optional;
 
-public class DoNothingFactoryManager implements FactoryManager {
+public class DoNothingFactoryManager extends AbstractFactoryManager {
     @Override
     public void init() {
 
