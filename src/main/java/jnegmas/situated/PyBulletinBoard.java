@@ -1,5 +1,7 @@
 package jnegmas.situated;
 
+import jnegmas.PyCallable;
+
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -9,7 +11,7 @@ import java.util.Optional;
  * any records they created
  *
  */
-public interface PyBulletinBoard {
+public interface PyBulletinBoard extends PyCallable {
 
     // void add_section(String name);
 

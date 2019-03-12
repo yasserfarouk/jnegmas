@@ -1,5 +1,6 @@
 package jnegmas.situated;
 
+import jnegmas.PyCallable;
 import jnegmas.outcomes.Issue;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.Optional;
  * to provide new functionality that is only available in their world.
  *
  */
-public interface PyAgentWorldInterface {
+public interface PyAgentWorldInterface extends PyCallable {
     Object state();
     float relative_time();
     int current_step();

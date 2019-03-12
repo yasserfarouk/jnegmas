@@ -3,6 +3,8 @@ package jnegmas.apps.scml.factory_managers;
 import jnegmas.apps.scml.common.*;
 import jnegmas.common.MechanismInfo;
 import jnegmas.common.MechanismState;
+import jnegmas.sao.PySAONegotiator;
+import jnegmas.sao.SAONegotiator;
 import jnegmas.situated.Contract;
 
 import java.util.ArrayList;
@@ -36,8 +38,8 @@ public class DoNothingFactoryManager extends AbstractFactoryManager {
     }
 
     @Override
-    public String on_negotiation_request(CFP cfp, String partner) {
-        return "";
+    public PySAONegotiator on_negotiation_request(CFP cfp, String partner) {
+        return null;
     }
 
     @Override
@@ -73,9 +75,9 @@ public class DoNothingFactoryManager extends AbstractFactoryManager {
     }
 
     @Override
-    public String respond_to_renegotiation_request(Contract contract
+    public PySAONegotiator respond_to_renegotiation_request(Contract contract
             , ArrayList<HashMap<String, Breach>> breaches, RenegotiationRequest agenda) {
-        return "";
+        return null;
     }
 
     @Override

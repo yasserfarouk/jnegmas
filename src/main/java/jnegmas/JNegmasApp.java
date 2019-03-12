@@ -12,6 +12,7 @@ public class JNegmasApp {
     private static final int DEFAULT_JAVA_PORT = 25333;
     private static final int DEFAULT_PYTHON_PORT = 25334;
 
+
     public Object create(String class_name){
         System.out.format("Creating %s\n", class_name);
         try {
@@ -25,6 +26,12 @@ public class JNegmasApp {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public PyCaller create(String class_name, PyCallable python_object){
+        PyCaller java_object = (PyCaller) create(class_name);
+        java_object.setPythonShadow(python_object);
+        return java_object;
     }
 
     public static void usage(){

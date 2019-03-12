@@ -1,5 +1,7 @@
 package jnegmas.apps.scml.awi;
 
-public interface PySCMLAWI {
+import jnegmas.situated.PyAgentWorldInterface;
+
+public interface PySCMLAWI extends PyAgentWorldInterface {
 
 }

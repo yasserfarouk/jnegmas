@@ -1,5 +1,7 @@
 package jnegmas.situated;
 
-public interface PyContract {
+import jnegmas.PyCallable;
+
+public interface PyContract extends PyCallable {
 
 }

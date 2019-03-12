@@ -5,7 +5,6 @@ import jnegmas.apps.scml.awi.PySCMLAWI;
 import jnegmas.apps.scml.common.*;
 import jnegmas.apps.scml.common.Process;
 import jnegmas.apps.scml.simulators.PyFactorySimulator;
-import jnegmas.situated.PyAgentWorldInterface;
 
 import java.util.ArrayList;
 import java.util.HashMap;

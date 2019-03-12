@@ -1,11 +1,12 @@
 package jnegmas.apps.scml.simulators;
 
+import jnegmas.PyCallable;
 import jnegmas.apps.scml.common.Job;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
-public interface PyFactorySimulator {
+public interface PyFactorySimulator extends PyCallable {
 
     Optional<Integer> max_storage();
 
