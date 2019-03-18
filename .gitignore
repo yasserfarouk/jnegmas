@@ -1,6 +1,7 @@
 .*
 .gradle
 build
+.idea/
 .idea
 out
 py4j

@@ -17,6 +17,7 @@ public class GreedyFactoryManager extends AbstractFactoryManager implements PyCa
 
     @Override
     public void init() {
+
         this.shadow.init();
     }
 
@@ -90,6 +91,7 @@ public class GreedyFactoryManager extends AbstractFactoryManager implements PyCa
 
     @Override
     public void setPythonShadow(PyCallable python_object) {
+
         this.shadow = (PyFactoryManager) python_object;
     }
 

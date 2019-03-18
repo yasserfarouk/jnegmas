@@ -40,6 +40,7 @@ public abstract class AbstractFactoryManager extends SCMLAgent implements Factor
     }
 
     public PySCMLAWI getAWI() {
+
         return awi;
     }
 

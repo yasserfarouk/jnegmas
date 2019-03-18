@@ -29,13 +29,18 @@ public class JNegmasApp {
     }
 
     public PyCaller create(String class_name, PyCallable python_object){
+        System.out.format("Creating %s with python object\n", class_name);
         PyCaller java_object = (PyCaller) create(class_name);
         java_object.setPythonShadow(python_object);
         return java_object;
     }
 
     public static void usage(){
-        System.out.print("Usage: jnemas [--die-on-exit/--doe/-d] [--port/-p int]\n");
+        System.out.print("Usage: jnemas [--die-on-exit/--doe/-d] [--port/-p int]" +
+                "[--client-server|--gateway]\n" +
+                "Default is: --client-server\n" +
+                "" +
+                "The Python side should use the same client-server/gateway setting and connect to the same port");
     }
 
     public static void main(String[] args) {
@@ -56,12 +61,12 @@ public class JNegmasApp {
                 if (i < args.length - 1) {
                     try {
                         port = Integer.parseInt(args[i + 1]);
+                        i++;
                     }catch (NumberFormatException e){
                         System.out.format("%s is not a number! (port numbers must be numbers)\n\n", args[i+1]);
                         usage();
                         System.exit(-1);
                     }
-
                 }
                 else{
                     System.out.format("Cannot pass %s as last argument\n\n", opt);
@@ -84,7 +89,8 @@ public class JNegmasApp {
         } else{
             GatewayServer server = new GatewayServer(app, port);
             int listening_port = server.getListeningPort();
-            System.out.format("Gateway to NegMAS started at port %d listening to port %d (multiple-threads)\n", port, listening_port);
+            System.out.format("Gateway to NegMAS started at port %d listening to port %d (multiple-threads)\n"
+                    , port, listening_port);
         }
 
 

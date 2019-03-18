@@ -10,10 +10,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Optional;
 
-public class MiddleMan implements FactoryManager {
+class ProductInfo {
+    public double buying_price = -1.0;
+    public double selling_price = -1.0;
+}
+
+public class MiddleMan extends AbstractFactoryManager {
+
+    ArrayList<ProductInfo> infos;
+    ArrayList<Product> products;
+
     @Override
     public void init() {
-
+        products = this.awi._allProducts();
+        infos = new ArrayList<>(products.size());
+        for (int i=0; i < products.size(); i++)
+            infos.set(i, new ProductInfo());
+        System.out.format("%d products", products.size());
     }
 
     @Override
