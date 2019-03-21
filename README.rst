@@ -1,3 +1,5 @@
+.. image:: https://img.shields.io/maven-central/v/com.yasserm/jnegmas.svg
+    :alt: Available on Maven
 
 JNegMAS is a java interface to NegMAS_.
 
