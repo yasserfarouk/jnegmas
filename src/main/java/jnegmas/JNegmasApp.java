@@ -3,6 +3,8 @@ package jnegmas;
 import py4j.ClientServer;
 import py4j.GatewayServer;
 
+import javax.net.ServerSocketFactory;
+import javax.net.SocketFactory;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
@@ -36,15 +38,35 @@ public class JNegmasApp {
     }
 
     public static void usage(){
-        System.out.print("Usage: jnemas [--die-on-exit/--doe/-d] [--port/-p int]" +
+        System.out.print("Usage: jnemas [--die-on-exit/--doe/-d] [--port/-p int] [--python-port/--pyport int]" +
                 "[--client-server|--gateway]\n" +
                 "Default is: --client-server\n" +
                 "" +
                 "The Python side should use the same client-server/gateway setting and connect to the same port");
     }
 
+    static int parse_port(String[] args, int i, String opt){
+        int port = 0;
+        if (i < args.length - 1) {
+            try {
+                port = Integer.parseInt(args[i + 1]);
+            }catch (NumberFormatException e){
+                System.out.format("%s is not a number! (port numbers must be numbers)\n\n", args[i+1]);
+                usage();
+                System.exit(-1);
+            }
+        }
+        else{
+            System.out.format("Cannot pass %s as last argument\n\n", opt);
+            usage();
+            System.exit(-1);
+        }
+        return port;
+    }
+
     public static void main(String[] args) {
         int port = DEFAULT_JAVA_PORT;
+        int python_port = DEFAULT_PYTHON_PORT;
         boolean dieOnBrokenPipe=false;
         boolean use_client_server=true;
         System.out.format("Received options: ");
@@ -57,22 +79,13 @@ public class JNegmasApp {
                 use_client_server = true;
             } else if (opt.equals("--gateway") || opt.equals("--multiple-threads")){
                 use_client_server = false;
-            } else if (opt.equals("-p") || opt.equals("--port")){
-                if (i < args.length - 1) {
-                    try {
-                        port = Integer.parseInt(args[i + 1]);
-                        i++;
-                    }catch (NumberFormatException e){
-                        System.out.format("%s is not a number! (port numbers must be numbers)\n\n", args[i+1]);
-                        usage();
-                        System.exit(-1);
-                    }
-                }
-                else{
-                    System.out.format("Cannot pass %s as last argument\n\n", opt);
-                    usage();
-                    System.exit(-1);
-                }
+            } else if (opt.equals("-p") || opt.equals("--port") || opt.equals("--java-port")
+                    || opt.equals("--jport")){
+                port = parse_port(args, i, opt);
+                i++;
+            } else if (opt.equals("--python-port") || opt.equals("--pyport")){
+                python_port = parse_port(args, i, opt);
+                i++;
             }else{
                 System.out.format("Unknown argument: %s\n\n", opt);
                 usage();
@@ -83,7 +96,12 @@ public class JNegmasApp {
         JNegmasApp app = new JNegmasApp();
         if (use_client_server) {
             // app is now the gateway.entry_point
-            ClientServer server = new ClientServer(app);
+            ClientServer server = new ClientServer(DEFAULT_JAVA_PORT, GatewayServer.defaultAddress()
+                    , python_port,
+                    GatewayServer.defaultAddress(), GatewayServer.DEFAULT_CONNECT_TIMEOUT,
+                    GatewayServer.DEFAULT_READ_TIMEOUT, ServerSocketFactory.getDefault()
+                    , SocketFactory.getDefault(),
+                    app);
             server.startServer();
             System.out.format("Gateway to NegMAS started at port %d (single-thread)\n", port);
         } else{

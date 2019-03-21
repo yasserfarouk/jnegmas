@@ -1,55 +1,25 @@
 package jnegmas.sao;
 
+import jnegmas.PyCallable;
+import jnegmas.PyCaller;
 import jnegmas.common.MechanismInfo;
 import jnegmas.common.MechanismState;
 import jnegmas.utilities.UtilityFunction;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
-public class AspirationNegotiator implements SAONegotiator {
-    public double maxAspiration =1.0;
-    public double exponent =4.0;
-    public boolean aboveReserved =true;
-    public double reservedValue=0.0;
-    ArrayList<HashMap<String, Object>> orderedOutcomes = new ArrayList<>();
-    boolean dynamicUfun = true;
-    boolean ranodmizeOffer=false;
-    boolean ufunModified=false;
-    PySAONegotiator pyNegotiator=null;
+public class PythonSAONegotiator implements SAONegotiator, PyCaller {
 
-    public AspirationNegotiator(){
-
-    }
-    public AspirationNegotiator(double exponent, double maxAspiration, double reservedValue, boolean aboveReserved){
-        this.maxAspiration = maxAspiration;
-        this.exponent = exponent;
-        this.aboveReserved = aboveReserved;
-        this.reservedValue = reservedValue;
-    }
-    public AspirationNegotiator(boolean aboveReserved){
-        this.aboveReserved = aboveReserved;
-    }
-
-    public double aspiration(double t){
-        if(this.exponent<1e-7)
-            return 0.0;
-        double pmin = this.aboveReserved? this.reservedValue : 0.0;
-        return pmin + (this.maxAspiration - pmin) * (1.0 - Math.pow(t, this.exponent));
-    }
-
-    private void updateOrderedOutcomes(){
-
-    }
+    PySAONegotiator shadow;
 
     @Override
     public int respond(MechanismState state, HashMap<String, Object> outcome) {
-        return 0;
+        return shadow.respond(state.toMap(), outcome);
     }
 
     @Override
     public HashMap<String, Object> propose(MechanismState state) {
-        return null;
+        return shadow.propose(state.toMap());
     }
 
     @Override
@@ -57,73 +27,85 @@ public class AspirationNegotiator implements SAONegotiator {
             , float cost_per_round, float power_per_round, float discount_per_round, float cost_per_relative_time
             , float power_per_relative_time, float discount_per_relative_time, float cost_per_real_time
             , float power_per_real_time, float discount_per_real_time, boolean dynamic_reservation) {
-        return false;
+        return shadow.on_enter(info.toMap(), state.toMap(), ufun, role, cost_per_round, power_per_round
+                , discount_per_round, cost_per_relative_time, power_per_relative_time, discount_per_relative_time
+                , cost_per_real_time, power_per_real_time, discount_per_real_time, dynamic_reservation);
     }
 
     @Override
     public boolean onEnter(MechanismInfo info, MechanismState state, UtilityFunction ufun, String role) {
-        return false;
+        return shadow.on_enter(info.toMap(), state.toMap(), ufun, role);
     }
 
     @Override
     public boolean onEnter(MechanismInfo info, MechanismState state, UtilityFunction ufun) {
-        return false;
+        return shadow.on_enter(info.toMap(), state.toMap(), ufun);
     }
 
     @Override
     public boolean onEnter(MechanismInfo info, MechanismState state) {
-        return false;
+        return shadow.on_enter(info.toMap(), state.toMap());
     }
 
     @Override
     public void onNegotiationStart(MechanismState state) {
-
+        shadow.on_negotiation_start(state.toMap());
     }
 
     @Override
     public void onRoundStart(MechanismState state) {
-
+        shadow.on_round_start(state.toMap());
     }
 
     @Override
     public void onMechanismError(MechanismState state) {
-
+        shadow.on_mechanism_error(state.toMap());
     }
 
     @Override
     public void onRoundEnd(MechanismState state) {
-
+        shadow.on_round_end(state.toMap());
     }
 
     @Override
     public void onLeave(MechanismState state) {
-
+        shadow.on_leave(state.toMap());
     }
 
     @Override
     public void onNegotiationEnd(MechanismState state) {
-
+        shadow.on_negotiation_end(state.toMap());
     }
 
     @Override
     public void onPartnerProposal(MechanismState state, String agent_id, HashMap<String, Object> offer) {
-
+        shadow.on_partner_proposal(state.toMap(), agent_id, offer);
     }
 
     @Override
     public void onPartnerRefusedToPropose(MechanismState state, String agent_id) {
-
+        shadow.on_partner_refused_to_propose(state.toMap(), agent_id);
     }
 
     @Override
     public void onPartnerResponse(MechanismState state, String agent_id, HashMap<String, Object> offer, int response
             , HashMap<String, Object> counter_offer) {
-
+        shadow.on_partner_response(state.toMap(), agent_id, offer, response, counter_offer);
     }
 
     @Override
     public void onNotification(HashMap<String, Object> notification, String notifier) {
+        shadow.on_notification(notification, notifier);
+    }
+
+    @Override
+    public void setPythonShadow(PyCallable python_object) {
+        shadow = (PySAONegotiator) python_object;
 
     }
 
+    @Override
+    public PyCallable getPythonShadow() {
+        return shadow;
+    }
 }

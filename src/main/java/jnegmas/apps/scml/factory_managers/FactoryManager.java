@@ -19,39 +19,45 @@ public interface FactoryManager {
 
     void step();
 
-    void on_production_failure(ArrayList<ProductionFailure> failures);
+    void onContractNullified(Contract contract, String bankrupt_partner,double  compensation);
 
-    boolean confirm_loan(Loan loan);
+    void onAgentBankrupt(String agent_id);
 
-    boolean confirm_contract_execution(Contract contract);
+    boolean confirmPartialExecution(Contract contract, ArrayList<Breach> breaches);
+
+    void onProductionFailure(ArrayList<ProductionFailure> failures);
+
+    boolean confirmLoan(Loan loan, boolean bankrupt_if_rejected);
+
+    boolean confirmContractExecution(Contract contract);
 
 
-    PySAONegotiator on_negotiation_request(CFP cfp, String partner);
+    PySAONegotiator onNegotiationRequest(CFP cfp, String partner);
 
 
-    void on_negotiation_failure(ArrayList<String> partners, HashMap<String, Object> annotation,
+    void onNegotiationFailure(ArrayList<String> partners, HashMap<String, Object> annotation,
                                 MechanismInfo mechanis, MechanismState state);
 
 
-    void on_negotiation_success(Contract contract, MechanismInfo mechanism);
+    void onNegotiationSuccess(Contract contract, MechanismInfo mechanism);
 
 
-    void on_contract_signed(Contract contract);
+    void onContractSigned(Contract contract);
 
 
-    void on_contract_cancelled(Contract contract, ArrayList<String> rejectors);
+    void onContractCancelled(Contract contract, ArrayList<String> rejectors);
 
 
-    Optional<String> sign_contract(Contract contract);
+    Optional<String> signContract(Contract contract);
 
 
-    Optional<RenegotiationRequest> set_renegotiation_agenda(Contract contract
+    Optional<RenegotiationRequest> setRenegotiationAgenda(Contract contract
             , ArrayList<HashMap<String, Breach>> breaches);
 
-    PySAONegotiator respond_to_renegotiation_request(Contract contract
+    PySAONegotiator respondToRenegotiationRequest(Contract contract
             , ArrayList<HashMap<String, Breach>> breaches, RenegotiationRequest agenda);
 
-    boolean on_renegotiation_request(Contract contract, CFP cfp, String partner);
+    boolean onRenegotiationRequest(Contract contract, CFP cfp, String partner);
 
 
 }

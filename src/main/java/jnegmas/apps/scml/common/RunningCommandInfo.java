@@ -1,10 +1,10 @@
 package jnegmas.apps.scml.common;
 
-import jnegmas.PyReadable;
+import jnegmas.PyCopiable;
 
 import java.util.HashMap;
 
-public class RunningCommandInfo implements PyReadable {
+public class RunningCommandInfo implements PyCopiable {
     public ManufacturingProfile profile;
     public int beg;
     public int end;
@@ -15,7 +15,7 @@ public class RunningCommandInfo implements PyReadable {
 
     @Override
     public void fromMap(HashMap<String, Object> dict) {
-        profile = (ManufacturingProfile) PyReadable.fromMap(new ManufacturingProfile()
+        profile = (ManufacturingProfile) PyCopiable.fromMap(new ManufacturingProfile()
                 , (HashMap<String, Object>) dict.get("profile"));
         beg = (int) dict.get("beg");
         end = (int) dict.get("end");

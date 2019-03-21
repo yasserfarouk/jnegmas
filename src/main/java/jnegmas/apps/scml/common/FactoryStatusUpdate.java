@@ -1,10 +1,10 @@
 package jnegmas.apps.scml.common;
 
-import jnegmas.PyReadable;
+import jnegmas.PyCopiable;
 
 import java.util.HashMap;
 
-public class FactoryStatusUpdate implements PyReadable {
+public class FactoryStatusUpdate implements PyCopiable {
     public double balance;
     public HashMap<Integer, Integer> storage;
 

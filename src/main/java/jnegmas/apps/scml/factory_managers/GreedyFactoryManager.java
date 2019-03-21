@@ -27,65 +27,80 @@ public class GreedyFactoryManager extends AbstractFactoryManager implements PyCa
     }
 
     @Override
-    public void on_production_failure(ArrayList<ProductionFailure> failures) {
+    public void onContractNullified(Contract contract, String bankrupt_partner, double compensation) {
+        this.shadow.on_contract_nullified(contract, bankrupt_partner, compensation);
+    }
+
+    @Override
+    public void onAgentBankrupt(String agent_id) {
+        this.shadow.on_agent_bankrupt(agent_id);
+    }
+
+    @Override
+    public boolean confirmPartialExecution(Contract contract, ArrayList<Breach> breaches) {
+        return this.shadow.confirm_partial_execution(contract, breaches);
+    }
+
+    @Override
+    public void onProductionFailure(ArrayList<ProductionFailure> failures) {
         this.shadow.on_production_failure(failures);
     }
 
     @Override
-    public boolean confirm_loan(Loan loan) {
-        return this.shadow.confirm_loan(loan);
+    public boolean confirmLoan(Loan loan, boolean bankrupt_if_rejected) {
+        return this.shadow.confirm_loan(loan, bankrupt_if_rejected);
     }
 
     @Override
-    public boolean confirm_contract_execution(Contract contract) {
+    public boolean confirmContractExecution(Contract contract) {
         return this.shadow.confirm_contract_execution(contract);
     }
 
     @Override
-    public PySAONegotiator on_negotiation_request(CFP cfp, String partner) {
+    public PySAONegotiator onNegotiationRequest(CFP cfp, String partner) {
         return this.shadow.on_negotiation_request(cfp, partner);
     }
 
     @Override
-    public void on_negotiation_failure(ArrayList<String> partners, HashMap<String, Object> annotation
+    public void onNegotiationFailure(ArrayList<String> partners, HashMap<String, Object> annotation
             , MechanismInfo mechanism, MechanismState state) {
         this.shadow.on_negotiation_failure(partners, annotation, mechanism, state);
     }
 
     @Override
-    public void on_negotiation_success(Contract contract, MechanismInfo mechanism) {
+    public void onNegotiationSuccess(Contract contract, MechanismInfo mechanism) {
         this.shadow.on_negotiation_success(contract, mechanism);
     }
 
     @Override
-    public void on_contract_signed(Contract contract) {
+    public void onContractSigned(Contract contract) {
         this.shadow.on_contract_signed(contract);
     }
 
     @Override
-    public void on_contract_cancelled(Contract contract, ArrayList<String> rejectors) {
+    public void onContractCancelled(Contract contract, ArrayList<String> rejectors) {
         this.shadow.on_contract_cancelled(contract, rejectors);
     }
 
     @Override
-    public Optional<String> sign_contract(Contract contract) {
+    public Optional<String> signContract(Contract contract) {
         return this.shadow.sign_contract(contract);
     }
 
     @Override
-    public Optional<RenegotiationRequest> set_renegotiation_agenda(Contract contract, ArrayList<HashMap<String
+    public Optional<RenegotiationRequest> setRenegotiationAgenda(Contract contract, ArrayList<HashMap<String
             , Breach>> breaches) {
         return this.shadow.set_renegotiation_agenda(contract, breaches);
     }
 
     @Override
-    public PySAONegotiator respond_to_renegotiation_request(Contract contract, ArrayList<HashMap<String, Breach>> breaches
+    public PySAONegotiator respondToRenegotiationRequest(Contract contract, ArrayList<HashMap<String, Breach>> breaches
             , RenegotiationRequest agenda) {
         return this.shadow.respond_to_renegotiation_request(contract, breaches, agenda);
     }
 
     @Override
-    public boolean on_renegotiation_request(Contract contract, CFP cfp, String partner) {
+    public boolean onRenegotiationRequest(Contract contract, CFP cfp, String partner) {
         return this.shadow.on_renegotiation_request(contract, cfp, partner);
     }
 

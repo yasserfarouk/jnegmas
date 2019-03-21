@@ -1,10 +1,10 @@
 package jnegmas.situated;
 
-import jnegmas.PyReadable;
+import jnegmas.PyCopiable;
 
 import java.util.HashMap;
 
-public class Contract implements PyReadable {
+public class Contract implements PyCopiable {
 
 
     @Override

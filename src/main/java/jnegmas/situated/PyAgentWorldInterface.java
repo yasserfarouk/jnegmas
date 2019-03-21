@@ -16,14 +16,13 @@ import java.util.Optional;
  *
  */
 public interface PyAgentWorldInterface extends PyCallable {
-    Object state();
+    Object get_state();
     float relative_time();
-    int current_step();
-    int n_steps();
-    PyBulletinBoard bulletin_board();
-    int default_signing_delay();
+    int get_current_step();
+    int get_n_steps();
+    int get_default_signing_delay();
 
-    boolean request_negotiation(ArrayList<Issue> issues, ArrayList<String> partners, String req_id
+    boolean request_negotiation(ArrayList<HashMap<String, Object>> issues, ArrayList<String> partners, String req_id
     , ArrayList<String> roles, HashMap<String, Object> annotation, Optional<String> mechanism_name
     , HashMap<String, Object> mechanism_params);
 

@@ -1,11 +1,11 @@
 package jnegmas.apps.scml.common;
 
-import jnegmas.PyReadable;
+import jnegmas.PyCopiable;
 import jnegmas.situated.Contract;
 
 import java.util.HashMap;
 
-public class ProductionNeed implements PyReadable {
+public class ProductionNeed implements PyCopiable {
     public int product;
     public int quantity_to_buy;
     public int quantity_in_storage;

@@ -1,12 +1,12 @@
 package jnegmas.apps.scml.common;
 
-import jnegmas.PyReadable;
+import jnegmas.PyCopiable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Process implements PyReadable {
-    public String id;
+public class Process implements PyCopiable {
+    public int id;
     public int production_level;
     public String name;
     public ArrayList<InputOutput> inputs = new ArrayList<>();
@@ -15,7 +15,7 @@ public class Process implements PyReadable {
 
     @Override
     public void fromMap(HashMap<String, Object> dict) {
-        id = (String) dict.get("id");
+        id = (int) dict.get("id");
         production_level = (int) dict.get("production_level");
         name = (String) dict.get("name");
         inputs = (ArrayList<InputOutput>) dict.get("inputs");

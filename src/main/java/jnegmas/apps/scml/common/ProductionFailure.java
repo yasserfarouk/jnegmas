@@ -1,11 +1,11 @@
 package jnegmas.apps.scml.common;
 
-import jnegmas.PyReadable;
+import jnegmas.PyCopiable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ProductionFailure implements PyReadable {
+public class ProductionFailure implements PyCopiable {
     public int line;
     public RunningCommandInfo command;
     public ArrayList<MissingInput> missing_inputs = new ArrayList<>();

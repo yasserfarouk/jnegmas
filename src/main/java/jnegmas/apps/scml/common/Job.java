@@ -1,11 +1,11 @@
 package jnegmas.apps.scml.common;
 
-import jnegmas.PyReadable;
+import jnegmas.PyCopiable;
 import jnegmas.situated.Contract;
 
 import java.util.HashMap;
 
-public class Job implements PyReadable {
+public class Job implements PyCopiable {
     public int profile;
     public int time;
     public int line;

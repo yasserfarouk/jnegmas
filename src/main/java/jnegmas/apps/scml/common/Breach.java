@@ -1,10 +1,10 @@
 package jnegmas.apps.scml.common;
 
-import jnegmas.PyReadable;
+import jnegmas.PyCopiable;
 
 import java.util.HashMap;
 
-public class Breach implements PyReadable {
+public class Breach implements PyCopiable {
     @Override
     public void fromMap(HashMap<String, Object> dict) {
 

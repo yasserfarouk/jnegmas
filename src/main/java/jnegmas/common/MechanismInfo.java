@@ -1,4 +1,17 @@
 package jnegmas.common;
 
-public class MechanismInfo {
+import jnegmas.PyCopiable;
+
+import java.util.HashMap;
+
+public class MechanismInfo implements PyCopiable {
+    @Override
+    public void fromMap(HashMap<String, Object> dict) {
+
+    }
+
+    @Override
+    public HashMap<String, Object> toMap() {
+        return null;
+    }
 }

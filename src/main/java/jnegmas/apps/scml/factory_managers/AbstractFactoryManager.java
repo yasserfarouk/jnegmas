@@ -1,17 +1,19 @@
 package jnegmas.apps.scml.factory_managers;
 
-import jnegmas.PyReadable;
+import jnegmas.PyCopiable;
 import jnegmas.apps.scml.awi.PySCMLAWI;
+import jnegmas.apps.scml.awi.PythonSCMLAWI;
 import jnegmas.apps.scml.common.*;
 import jnegmas.apps.scml.common.Process;
+import jnegmas.apps.scml.simulators.FactorySimulator;
 import jnegmas.apps.scml.simulators.PyFactorySimulator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public abstract class AbstractFactoryManager extends SCMLAgent implements FactoryManager, PyReadable {
-    PySCMLAWI awi;
-    PyFactorySimulator simulator;
+public abstract class AbstractFactoryManager extends SCMLAgent implements FactoryManager, PyCopiable {
+    PythonSCMLAWI awi;
+    FactorySimulator simulator;
     int transportation_delay;
     int current_step;
     int max_storage;
@@ -35,18 +37,17 @@ public abstract class AbstractFactoryManager extends SCMLAgent implements Factor
     }
 
     public void setAWI(PySCMLAWI value) {
-
-        this.awi = value;
+        this.awi = new PythonSCMLAWI(value);
     }
 
     public PySCMLAWI getAWI() {
 
-        return awi;
+        return (PySCMLAWI) awi.getPythonShadow();
     }
 
     public void fromMap(HashMap<String, Object> dict) {
-        awi = (PySCMLAWI) dict.get("awi");
-        simulator = (PyFactorySimulator) dict.get("simulator");
+        awi = new PythonSCMLAWI((PySCMLAWI) dict.get("awi"));
+        simulator = new FactorySimulator((PyFactorySimulator) dict.get("simulator"));
         transportation_delay = (int) dict.get("transportation_delay");
         current_step = (int) dict.get("current_step");
         max_storage = (int) dict.get("max_storage");
@@ -61,12 +62,13 @@ public abstract class AbstractFactoryManager extends SCMLAgent implements Factor
         products = (ArrayList<Product>) dict.get("products");
         processes = (ArrayList<Process>) dict.get("processes");
         interesting_products = (ArrayList<Integer>) dict.get("interesting_products");
+        name = (String) dict.get("name");
     }
 
     public HashMap<String, Object> toMap() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("awi", awi);
-        map.put("simulator", simulator);
+        map.put("awi", awi.getPythonShadow());
+        map.put("simulator", simulator.getPythonShadow());
         map.put("transportation_delay", transportation_delay);
         map.put("current_step", current_step);
         map.put("max_storage", max_storage);
@@ -81,12 +83,8 @@ public abstract class AbstractFactoryManager extends SCMLAgent implements Factor
         map.put("products", products);
         map.put("processes", processes);
         map.put("interesting_products", interesting_products);
+        map.put("name", name);
         return map;
-    }
-
-    public void on_construction(String name, PyFactorySimulator simulator) {
-        this.name = name;
-        this.simulator = simulator;
     }
 
 }

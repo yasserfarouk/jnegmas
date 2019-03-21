@@ -1,11 +1,11 @@
 package jnegmas.apps.scml.common;
 
-import jnegmas.PyReadable;
+import jnegmas.PyCopiable;
 import jnegmas.situated.Contract;
 
 import java.util.HashMap;
 
-public class InsurancePolicy implements PyReadable {
+public class InsurancePolicy implements PyCopiable {
     public double premium;
     public int at_time;
     public Contract contract = null;
@@ -26,8 +26,8 @@ public class InsurancePolicy implements PyReadable {
         HashMap<String, Object> map = new HashMap<>();
         map.put("premium", premium);
         map.put("at_time", at_time);
-        map.put("contract", PyReadable.toMap(contract));
-        map.put("against", PyReadable.toMap(against));
+        map.put("contract", PyCopiable.toMap(contract));
+        map.put("against", PyCopiable.toMap(against));
         return map;
     }
 }

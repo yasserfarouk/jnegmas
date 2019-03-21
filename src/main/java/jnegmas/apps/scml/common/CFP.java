@@ -1,10 +1,10 @@
 package jnegmas.apps.scml.common;
 
-import jnegmas.PyReadable;
+import jnegmas.PyCopiable;
 
 import java.util.HashMap;
 
-public class CFP implements PyReadable {
+public class CFP implements PyCopiable {
     public boolean is_buy;
     public String publisher;
     public int product;

@@ -1,12 +1,12 @@
 package jnegmas.apps.scml.common;
 
-import jnegmas.PyReadable;
+import jnegmas.PyCopiable;
 
 import java.util.HashMap;
 
-public class Product implements PyReadable {
-    public String id = "";
-    public int production_level = 0;
+public class Product implements PyCopiable {
+    public int id;
+    public int production_level;
     public String name = "";
     public Integer expires_in = null;
     public Double catalog_price = null;
@@ -17,7 +17,7 @@ public class Product implements PyReadable {
 
     @Override
     public void fromMap(HashMap<String, Object> dict) {
-        id = (String) dict.get("id");
+        id = (int) dict.get("id");
         production_level = (int) dict.get("production_level");
         name = (String) dict.get("name");
         expires_in = (Integer) dict.get("expires_in");

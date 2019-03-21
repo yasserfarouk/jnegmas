@@ -1,11 +1,11 @@
 package jnegmas.apps.scml.common;
 
-import jnegmas.PyReadable;
+import jnegmas.PyCopiable;
 import jnegmas.outcomes.OutcomeType;
 
 import java.util.HashMap;
 
-public class SCMLAgreement implements OutcomeType, PyReadable {
+public class SCMLAgreement implements OutcomeType, PyCopiable {
     public int time;
     public double unit_price;
     public int quantity;

@@ -1,10 +1,10 @@
 package jnegmas.apps.scml.common;
 
-import jnegmas.PyReadable;
+import jnegmas.PyCopiable;
 
 import java.util.HashMap;
 
-public class ProductionReport implements PyReadable {
+public class ProductionReport implements PyCopiable {
     public int line;
     public RunningCommandInfo started = null;
     public RunningCommandInfo continuing = null;

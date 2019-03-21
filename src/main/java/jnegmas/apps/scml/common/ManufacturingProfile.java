@@ -1,10 +1,10 @@
 package jnegmas.apps.scml.common;
 
-import jnegmas.PyReadable;
+import jnegmas.PyCopiable;
 
 import java.util.HashMap;
 
-public class ManufacturingProfile implements PyReadable {
+public class ManufacturingProfile implements PyCopiable {
     public int n_steps;
     public double cost;
     public double initial_pause_cost;

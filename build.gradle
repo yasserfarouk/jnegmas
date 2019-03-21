@@ -1,6 +1,19 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        //Needed only for SNAPSHOT versions
+        //maven { url "http://oss.sonatype.org/content/repositories/snapshots/" }
+    }
+    dependencies {
+        classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.20.0"
+    }
+}
+
 plugins {
     id 'com.github.johnrengelman.shadow' version '5.0.0'
     id 'java'
+    id "java-library"
+    id "de.marcphilipp.nexus-publish" version "0.2.0"
 }
 
 group 'com.yasserm'
@@ -23,4 +36,95 @@ jar {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile group: 'net.sf.py4j', name: 'py4j', version: '0.10.8.1'
+}
+apply plugin: 'maven'
+apply plugin: 'signing'
+apply plugin: 'io.codearte.nexus-staging'
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+
+signing {
+    sign configurations.archives
+}
+
+
+archivesBaseName = 'jnegmas'
+group = "com.yasserm"
+version = "0.1.0"
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                packaging 'jar'
+                name 'jnegmas'
+                description 'A Java interface to JNegMAS allowing for the development of agents in Java'
+                url 'https://github.com/yasserfarouk/jnegmas'
+                inceptionYear '2019'
+                scm {
+                    url 'https://github.com/yasserfarouk/jnegmas'
+                    connection 'scm:https://github.com/yasserfarouk/jnegmas.git'
+                    developerConnection 'scm:git://github.com/yasserfarouk/jnegmas.git'
+                }
+
+                licenses {
+                    license {
+                        name 'GNU General Public License, version 2'
+                        url 'https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt'
+                        distribution 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'yasserfarouk'
+                        name 'Yasser Mohammad'
+                        email 'yasserfarouk@gmail.com'
+                    }
+                }
+            }
+        }
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from(components.java)
+        }
+    }
+}
+
+nexusPublishing {
+    serverUrl = uri("https://oss.sonatype.org/service/local/") // defaults to https://oss.sonatype.org/service/local/
+    snapshotRepositoryUrl = uri("https://oss.sonatype.org/content/repositories/snapshots/") // defaults to https://oss.sonatype.org/content/repositories/snapshots/
+    username = project.properties["nexusUsername"] // defaults to project.properties["nexusUsername"]
+    password = project.properties["nexusPassword"] // defaults to project.properties["nexusPassword"]
+}
+
+nexusStaging {
+    packageGroup = project.getGroup() //optional if packageGroup == project.getGroup()
+    //stagingProfileId = packageGroup //when not defined will be got from server using "packageGroup"
 }
