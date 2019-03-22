@@ -1,5 +1,10 @@
 .. image:: https://img.shields.io/maven-central/v/com.yasserm/jnegmas.svg
+    :target: https://search.maven.org/search?q=a:jnegmas
     :alt: Available on Maven
+
+.. image:: https://www.javadoc.io/badge/com.yasserm/jnegmas.svg?label=documentation
+    :target: https://www.javadoc.io/doc/com.yasserm/jnegmas
+    :alt:
 
 JNegMAS is a java interface to NegMAS_.
 
