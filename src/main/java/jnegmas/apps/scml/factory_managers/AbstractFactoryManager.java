@@ -35,7 +35,7 @@ public abstract class AbstractFactoryManager extends SCMLAgent implements PyFact
 
     public PySCMLAWI getAWI() {
 
-        return (PySCMLAWI) awi.getPythonShadow();
+        return awi.getPythonShadow();
     }
 
 //    public void fromMap(HashMap<String, Object> dict) {
