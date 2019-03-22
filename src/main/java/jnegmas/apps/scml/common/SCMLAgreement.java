@@ -1,16 +1,20 @@
 package jnegmas.apps.scml.common;
 
-import jnegmas.PyCopiable;
-import jnegmas.outcomes.OutcomeType;
+import jnegmas.PyCopyable;
 
 import java.util.HashMap;
 
-public class SCMLAgreement implements OutcomeType, PyCopiable {
+public class SCMLAgreement extends HashMap<String, Object> implements PyCopyable {
     public int time;
     public double unit_price;
     public int quantity;
     public Integer penalty = null;
     public int signing_delay = -1;
+
+    @Override
+    public String getPythonClassName() {
+        return getClass().getName().substring(1);
+    }
 
     @Override
     public void fromMap(HashMap<String, Object> dict) {
@@ -19,7 +23,7 @@ public class SCMLAgreement implements OutcomeType, PyCopiable {
         quantity = (int) dict.get("quantity");
         penalty = (Integer) dict.get("penalty");
         signing_delay = (int) dict.get("signing_delay");
-    }  
+    }
 
     @Override
     public HashMap<String, Object> toMap() {

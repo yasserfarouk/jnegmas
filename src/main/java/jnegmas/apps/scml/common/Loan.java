@@ -1,10 +1,10 @@
 package jnegmas.apps.scml.common;
 
-import jnegmas.PyCopiable;
+import jnegmas.BaseCopyable;
 
 import java.util.HashMap;
 
-public class Loan implements PyCopiable {
+public class Loan extends BaseCopyable {
     public double amount;
     public int starts_at;
     public double total;

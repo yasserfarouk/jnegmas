@@ -1,10 +1,13 @@
 package jnegmas.apps.scml.common;
 
-import jnegmas.PyCopiable;
+import jnegmas.BaseCopyable;
+import jnegmas.outcomes.Issue;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
-public class CFP implements PyCopiable {
+public class CFP extends BaseCopyable {
     public boolean is_buy;
     public String publisher;
     public int product;
@@ -24,10 +27,9 @@ public class CFP implements PyCopiable {
     public boolean has_money_resolution;
     public String id;
 
-    public CFP(HashMap<String, Object> dict) {
-        fromMap(dict);
+    public CFP(HashMap<String, Object> map){
+        fromMap(map);
     }
-
 
     @Override
     public void fromMap(HashMap<String, Object> dict) {
@@ -73,5 +75,17 @@ public class CFP implements PyCopiable {
         map.put("has_money_resolution", has_money_resolution);
         map.put("id", id);
         return map;
+    }
+
+    public boolean satisfies(HashMap<String, Object> query) {
+        throw new NotImplementedException();
+    }
+
+    public ArrayList<Issue> getIssues() {
+        throw new NotImplementedException();
+    }
+
+    public ArrayList<HashMap<String, Object>> getOutcomes() {
+        throw new NotImplementedException();
     }
 }

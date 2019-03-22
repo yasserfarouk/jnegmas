@@ -8,13 +8,46 @@ import javax.net.SocketFactory;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.util.HashMap;
 
 public class JNegmasApp {
 
+    public static final String PYTHON_CLASS_IDENTIFIER = "__python_class__";
     private static final int DEFAULT_JAVA_PORT = 25333;
     private static final int DEFAULT_PYTHON_PORT = 25334;
     public static PyEntryPoint python;
 
+    public static<T extends PyCopyable> T fromMap(T object, HashMap<String, Object> dict) throws NoSuchFieldException
+            , IllegalAccessException, InstantiationException {
+        object.fromMap(dict);
+        return object;
+    }
+    public static HashMap<String, Object> toMap(PyCopyable object) throws IllegalAccessException {
+        if (object == null)
+            return null;
+        HashMap<String, Object> map = object.toMap();
+        map.put(JNegmasApp.PYTHON_CLASS_IDENTIFIER, object.getPythonClassName());
+        return map;
+    }
+
+    public static<T extends PyCopyable> T createFromMap(HashMap<String, Object> dict) throws NoSuchFieldException
+            , IllegalArgumentException {
+        if (!dict.containsKey(JNegmasApp.PYTHON_CLASS_IDENTIFIER)){
+            throw new IllegalArgumentException();
+        }
+        String java_class_name = String.format("j%s", dict.get(JNegmasApp.PYTHON_CLASS_IDENTIFIER));
+        return createFromMap(java_class_name, dict);
+    }
+    public static<T extends PyCopyable> T createFromMap(String java_class_name, HashMap<String, Object> dict) throws NoSuchFieldException
+            , IllegalArgumentException {
+        try {
+            Class cls = Class.forName(java_class_name);
+            return JNegmasApp.fromMap((T) cls.newInstance(), dict);
+        } catch (IllegalAccessException | InstantiationException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        throw new IllegalArgumentException();
+    }
 
     public Object create(String class_name){
         System.out.format("Creating %s\n", class_name);
@@ -30,6 +63,8 @@ public class JNegmasApp {
         }
         return null;
     }
+
+
 
     public PyCaller create(String class_name, PyCallable python_object){
         System.out.format("Creating %s with python object\n", class_name);

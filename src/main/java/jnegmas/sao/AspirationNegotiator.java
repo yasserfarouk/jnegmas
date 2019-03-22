@@ -53,76 +53,75 @@ public class AspirationNegotiator implements SAONegotiator {
     }
 
     @Override
-    public boolean onEnter(MechanismInfo info, MechanismState state, UtilityFunction ufun, String role
-            , float cost_per_round, float power_per_round, float discount_per_round, float cost_per_relative_time
-            , float power_per_relative_time, float discount_per_relative_time, float cost_per_real_time
-            , float power_per_real_time, float discount_per_real_time, boolean dynamic_reservation) {
+    public boolean on_enter(MechanismInfo info, MechanismState state, UtilityFunction ufun, String role
+            , double cost_per_round, double power_per_round, double discount_per_round, double cost_per_relative_time
+            , double power_per_relative_time, double discount_per_relative_time, double cost_per_real_time
+            , double power_per_real_time, double discount_per_real_time, boolean dynamic_reservation) {
         return false;
     }
 
     @Override
-    public boolean onEnter(MechanismInfo info, MechanismState state, UtilityFunction ufun, String role) {
+    public boolean on_enter(MechanismInfo info, MechanismState state, UtilityFunction ufun, String role) {
         return false;
     }
 
     @Override
-    public boolean onEnter(MechanismInfo info, MechanismState state, UtilityFunction ufun) {
+    public boolean on_enter(MechanismInfo info, MechanismState state, UtilityFunction ufun) {
         return false;
     }
 
     @Override
-    public boolean onEnter(MechanismInfo info, MechanismState state) {
+    public boolean on_enter(MechanismInfo info, MechanismState state) {
         return false;
     }
 
     @Override
-    public void onNegotiationStart(MechanismState state) {
+    public void on_negotiation_start(MechanismState state) {
 
     }
 
     @Override
-    public void onRoundStart(MechanismState state) {
+    public void on_round_start(MechanismState state) {
 
     }
 
     @Override
-    public void onMechanismError(MechanismState state) {
+    public void on_mechanism_error(MechanismState state) {
 
     }
 
     @Override
-    public void onRoundEnd(MechanismState state) {
+    public void on_round_end(MechanismState state) {
 
     }
 
     @Override
-    public void onLeave(MechanismState state) {
+    public void on_leave(MechanismState state) {
 
     }
 
     @Override
-    public void onNegotiationEnd(MechanismState state) {
+    public void on_negotiation_end(MechanismState state) {
 
     }
 
     @Override
-    public void onPartnerProposal(MechanismState state, String agent_id, HashMap<String, Object> offer) {
+    public void on_partner_proposal(MechanismState state, String agent_id, HashMap<String, Object> offer) {
 
     }
 
     @Override
-    public void onPartnerRefusedToPropose(MechanismState state, String agent_id) {
+    public void on_partner_refused_to_propose(MechanismState state, String agent_id) {
 
     }
 
     @Override
-    public void onPartnerResponse(MechanismState state, String agent_id, HashMap<String, Object> offer, int response
-            , HashMap<String, Object> counter_offer) {
+    public void on_partner_response(MechanismState state, String agent_id, HashMap<String, Object> offer, int response, HashMap<String, Object> counter_offer) {
 
     }
 
     @Override
-    public void onNotification(HashMap<String, Object> notification, String notifier) {
+    public void on_notification(HashMap<String, Object> notification, String notifier) {
 
     }
 

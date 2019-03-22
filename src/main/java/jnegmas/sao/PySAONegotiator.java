@@ -14,15 +14,15 @@ public interface PySAONegotiator extends PyCallable {
     // General Nagotiator callbacks
     boolean on_enter(HashMap<String, Object>  info, HashMap<String, Object>  state
             , UtilityFunction ufun, String role
-            , float cost_per_round
-            , float power_per_round
-            , float discount_per_round
-            , float cost_per_relative_time
-            , float power_per_relative_time
-            , float discount_per_relative_time
-            , float cost_per_real_time
-            , float power_per_real_time
-            , float discount_per_real_time
+            , double cost_per_round
+            , double power_per_round
+            , double discount_per_round
+            , double cost_per_relative_time
+            , double power_per_relative_time
+            , double discount_per_relative_time
+            , double cost_per_real_time
+            , double power_per_real_time
+            , double discount_per_real_time
             , boolean dynamic_reservation);
     boolean on_enter(HashMap<String, Object>  info, HashMap<String, Object>  state, UtilityFunction ufun, String role);
     boolean on_enter(HashMap<String, Object>  info, HashMap<String, Object>  state, UtilityFunction ufun);

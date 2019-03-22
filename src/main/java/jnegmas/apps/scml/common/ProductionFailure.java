@@ -1,22 +1,29 @@
 package jnegmas.apps.scml.common;
 
-import jnegmas.PyCopiable;
+import jnegmas.BaseCopyable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ProductionFailure implements PyCopiable {
+public class ProductionFailure extends BaseCopyable {
     public int line;
     public RunningCommandInfo command;
     public ArrayList<MissingInput> missing_inputs = new ArrayList<>();
     public double missing_money;
     public int missing_space;
 
+    /*
     @Override
     public void fromMap(HashMap<String, Object> dict) {
         line = (int) dict.get("line");
         command = new RunningCommandInfo();
-        command.fromMap((HashMap<String, Object>) dict.get("command"));
+        try {
+            command.fromMap((HashMap<String, Object>) dict.get("command"));
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
         missing_inputs = (ArrayList<MissingInput>) dict.get("missing_inputs");
         missing_money = (double) dict.get("missing_money");
         missing_space = (int) dict.get("missing_space");
@@ -32,5 +39,6 @@ public class ProductionFailure implements PyCopiable {
         map.put("missing_space", missing_space);
         return map;
     }
+    */
 }
 

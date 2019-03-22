@@ -16,10 +16,21 @@ public class MiddleMan extends DoNothingFactoryManager {
 
     @Override
     public void init() {
-        ArrayList<Product> products = this.awi.getProducts();
+        ArrayList<Product> products = new ArrayList<>();
+        try {
+            products = this.awi.shadow.get_products();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
         infos = new ArrayList<>(products.size());
         for (int i=0; i < products.size(); i++)
             infos.add(new ProductInfo());
+        ArrayList<Integer> product_indices = new ArrayList<>();
+        for (int i=0; i< products.size(); i++)
+            product_indices.add(i);
+        awi.shadow.register_interest(product_indices);
         System.out.format("%d products", products.size());
     }
 

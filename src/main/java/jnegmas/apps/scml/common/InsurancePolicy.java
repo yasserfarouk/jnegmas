@@ -1,16 +1,17 @@
 package jnegmas.apps.scml.common;
 
-import jnegmas.PyCopiable;
+import jnegmas.BaseCopyable;
 import jnegmas.situated.Contract;
 
 import java.util.HashMap;
 
-public class InsurancePolicy implements PyCopiable {
+public class InsurancePolicy extends BaseCopyable {
     public double premium;
     public int at_time;
     public Contract contract = null;
     public SCMLAgent against = null;
 
+    /*
     @Override
     public void fromMap(HashMap<String, Object> dict) {
         premium = (double) dict.get("premium");
@@ -26,8 +27,9 @@ public class InsurancePolicy implements PyCopiable {
         HashMap<String, Object> map = new HashMap<>();
         map.put("premium", premium);
         map.put("at_time", at_time);
-        map.put("contract", PyCopiable.toMap(contract));
-        map.put("against", PyCopiable.toMap(against));
+        map.put("contract", PyCopyable.toMap(contract));
+        map.put("against", PyCopyable.toMap(against));
         return map;
     }
+    */
 }

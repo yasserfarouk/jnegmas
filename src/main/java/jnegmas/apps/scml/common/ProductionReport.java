@@ -1,10 +1,10 @@
 package jnegmas.apps.scml.common;
 
-import jnegmas.PyCopiable;
+import jnegmas.BaseCopyable;
 
 import java.util.HashMap;
 
-public class ProductionReport implements PyCopiable {
+public class ProductionReport extends BaseCopyable {
     public int line;
     public RunningCommandInfo started = null;
     public RunningCommandInfo continuing = null;
@@ -24,8 +24,9 @@ public class ProductionReport implements PyCopiable {
         return started == null && finished == null && failure == null;
     }
 
+    /*
     @Override
-    public void fromMap(HashMap<String, Object> dict) {
+    public void fromMap(HashMap<String, Object> dict) throws NoSuchFieldException, IllegalAccessException {
         line = (int) dict.get("line");
         continuing = new RunningCommandInfo();
         continuing.fromMap((HashMap<String, Object>) dict.get("continuing"));
@@ -40,14 +41,14 @@ public class ProductionReport implements PyCopiable {
     }
 
     @Override
-    public HashMap<String, Object> toMap() {
+    public HashMap<String, Object> toMap() throws IllegalAccessException {
         HashMap<String, Object> map = new HashMap<>();
         map.put("line", line);
         map.put("started", started == null? null : started.toMap());
         map.put("continuing", continuing == null? null : continuing.toMap());
-        map.put("finished", finished == null? null : finished);
-        map.put("failure", failure == null? null : failure);
+        map.put("finished", finished);
+        map.put("failure", failure);
         map.put("updates", updates);
         return map;
-    }
+    }*/
 }

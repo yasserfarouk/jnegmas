@@ -1,11 +1,11 @@
 package jnegmas.apps.scml.common;
 
-import jnegmas.PyCopiable;
+import jnegmas.BaseCopyable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Process implements PyCopiable {
+public class Process extends BaseCopyable {
     public int id;
     public int production_level;
     public String name;

@@ -1,10 +1,10 @@
 package jnegmas.apps.scml.common;
 
-import jnegmas.PyCopiable;
+import jnegmas.BaseCopyable;
 
 import java.util.HashMap;
 
-public class MissingInput implements PyCopiable {
+public class MissingInput extends BaseCopyable {
     public int product;
     public int quantity;
 

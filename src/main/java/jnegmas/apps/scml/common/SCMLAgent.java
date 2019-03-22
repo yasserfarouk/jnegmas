@@ -1,10 +1,10 @@
 package jnegmas.apps.scml.common;
 
-import jnegmas.PyCopiable;
+import jnegmas.BaseCopyable;
 
 import java.util.HashMap;
 
-public class SCMLAgent implements PyCopiable {
+public class SCMLAgent extends BaseCopyable {
     public String name;
 
     public SCMLAgent(String name){

@@ -1,10 +1,10 @@
 package jnegmas.apps.scml.common;
 
-import jnegmas.PyCopiable;
+import jnegmas.BaseCopyable;
 
 import java.util.HashMap;
 
-public class RunningCommandInfo implements PyCopiable {
+public class RunningCommandInfo extends BaseCopyable {
     public ManufacturingProfile profile;
     public int beg;
     public int end;
@@ -13,10 +13,16 @@ public class RunningCommandInfo implements PyCopiable {
     public String action;
     public HashMap<Integer, FactoryStatusUpdate> updates;
 
-    @Override
+    /*@Override
     public void fromMap(HashMap<String, Object> dict) {
-        profile = (ManufacturingProfile) PyCopiable.fromMap(new ManufacturingProfile()
-                , (HashMap<String, Object>) dict.get("profile"));
+        try {
+            profile = ManufacturingProfile.fromMap(new ManufacturingProfile()
+                    , (HashMap<String, Object>) dict.get("profile"));
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
         beg = (int) dict.get("beg");
         end = (int) dict.get("end");
         step = (int) dict.get("step");
@@ -28,5 +34,5 @@ public class RunningCommandInfo implements PyCopiable {
     @Override
     public HashMap<String, Object> toMap() {
         return null;
-    }
+    }*/
 }

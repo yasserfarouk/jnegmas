@@ -5,6 +5,7 @@ import jnegmas.apps.scml.common.*;
 import jnegmas.common.MechanismInfo;
 import jnegmas.common.MechanismState;
 import jnegmas.sao.PySAONegotiator;
+import jnegmas.situated.Breach;
 import jnegmas.situated.Contract;
 
 import java.util.ArrayList;
