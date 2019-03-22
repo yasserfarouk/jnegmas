@@ -13,6 +13,7 @@ public class JNegmasApp {
 
     private static final int DEFAULT_JAVA_PORT = 25333;
     private static final int DEFAULT_PYTHON_PORT = 25334;
+    public static PyEntryPoint python;
 
 
     public Object create(String class_name){
@@ -103,14 +104,16 @@ public class JNegmasApp {
                     , SocketFactory.getDefault(),
                     app);
             server.startServer();
+            python = (PyEntryPoint) server.getPythonServerEntryPoint(new Class[] {PyEntryPoint.class});
             System.out.format("Gateway to NegMAS started at port %d (single-thread)\n", port);
         } else{
             GatewayServer server = new GatewayServer(app, port);
+            server.start();
+            python = (PyEntryPoint) server.getPythonServerEntryPoint(new Class[] {PyEntryPoint.class});
             int listening_port = server.getListeningPort();
             System.out.format("Gateway to NegMAS started at port %d listening to port %d (multiple-threads)\n"
                     , port, listening_port);
         }
-
 
         if (dieOnBrokenPipe) {
             /* Exit on EOF or broken pipe.  This ensures that the server dies
