@@ -131,7 +131,7 @@ public class BaseCopyableTest {
         assertEquals("partner 1", breach.perpetrator);
         assertEquals(4, (int)breach.contract.to_be_signed_at);
         assertTrue(breach.contract.state.started);
-        //assertEquals("9876", breach.contract.state.info.id);
+        assertEquals("9876", breach.contract.state.info.id);
     }
 
     @Test

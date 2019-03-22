@@ -6,6 +6,14 @@
     :target: https://www.javadoc.io/doc/com.yasserm/jnegmas
     :alt:
 
+.. image:: https://img.shields.io/codacy/coverage/f883d7cb9b6d4bf3aa880b758c45b87d.svg
+        :target: https://app.codacy.com/project/yasserfarouk/jnegmas/dashboard
+        :alt: Coveage
+
+.. image:: https://img.shields.io/codacy/grade/f883d7cb9b6d4bf3aa880b758c45b87d.svg
+        :target: https://app.codacy.com/project/yasserfarouk/jnegmas/dashboard
+        :alt: Code Quality
+
 JNegMAS is a java interface to NegMAS_.
 
 NegMAS is a python library for developing autonomous negotiation agents embedded in simulation environments.
