@@ -1,11 +1,10 @@
 package jnegmas.situated;
 
-import jnegmas.BaseCopyable;
-import jnegmas.situated.Contract;
+import jnegmas.PyCopyable;
 
 import java.util.ArrayList;
 
-public class Breach extends BaseCopyable {
+public class Breach implements PyCopyable {
     public Contract contract;
     public String perpetrator;
     public String type;

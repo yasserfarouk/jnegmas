@@ -1,37 +1,35 @@
 package jnegmas.apps.scml.common;
 
-import jnegmas.BaseCopyable;
+import jnegmas.PyCopyable;
 import jnegmas.situated.Contract;
 
-import java.util.HashMap;
-
-public class ProductionNeed extends BaseCopyable {
+public class ProductionNeed implements PyCopyable {
     public int product;
-    public int quantity_to_buy;
-    public int quantity_in_storage;
+    public int quantityToBuy;
+    public int quantityInStorage;
     public int step;
-    public Contract needed_for = null;
+    public Contract neededFor = null;
 
 
     /*
     @Override
     public void fromMap(HashMap<String, Object> dict) throws NoSuchFieldException, IllegalAccessException {
         product = (int) dict.get("product");
-        quantity_to_buy = (int) dict.get("quantity_to_buy");
-        quantity_in_storage = (int) dict.get("quantity_in_storage");
+        quantityToBuy = (int) dict.get("quantityToBuy");
+        quantityInStorage = (int) dict.get("quantityInStorage");
         step = (int) dict.get("step");
-        needed_for = new Contract();
-        needed_for.fromMap((HashMap<String, Object>) dict.get("needed_for"));
+        neededFor = new Contract();
+        neededFor.fromMap((HashMap<String, Object>) dict.get("neededFor"));
     }
 
     @Override
     public HashMap<String, Object> toMap() throws IllegalAccessException {
         HashMap<String, Object> map = new HashMap<>();
         map.put("product", product);
-        map.put("quantity_to_buy", quantity_to_buy);
-        map.put("quantity_in_storage", quantity_in_storage);
+        map.put("quantityToBuy", quantityToBuy);
+        map.put("quantityInStorage", quantityInStorage);
         map.put("step", step);
-        map.put("needed_for", needed_for == null? null : needed_for.toMap());
+        map.put("neededFor", neededFor == null? null : neededFor.toMap());
         return map;
     }
     */

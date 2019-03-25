@@ -1,37 +1,37 @@
 package jnegmas.apps.scml.common;
 
-import jnegmas.BaseCopyable;
+import jnegmas.PyCopyable;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
-public class Process extends BaseCopyable {
+public class Process implements PyCopyable {
     public int id;
-    public int production_level;
+    public int productionLevel;
     public String name;
     public ArrayList<InputOutput> inputs = new ArrayList<>();
     public ArrayList<InputOutput> outputs = new ArrayList<>();
-    public double historical_cost;
+    public double historicalCost;
 
+    /*
     @Override
     public void fromMap(HashMap<String, Object> dict) {
         id = (int) dict.get("id");
-        production_level = (int) dict.get("production_level");
+        productionLevel = (int) dict.get("productionLevel");
         name = (String) dict.get("name");
         inputs = (ArrayList<InputOutput>) dict.get("inputs");
         outputs = (ArrayList<InputOutput>) dict.get("outputs");
-        historical_cost = (double) dict.get("historical_cost");
+        historicalCost = (double) dict.get("historicalCost");
     }
 
     @Override
     public HashMap<String, Object> toMap() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("id", id);
-        map.put("production_level", production_level);
+        map.put("productionLevel", productionLevel);
         map.put("name", name);
         map.put("inputs", inputs);
         map.put("outputs", outputs);
-        map.put("historical_cost", historical_cost);
+        map.put("historicalCost", historicalCost);
         return map;
-    }
+    }*/
 }

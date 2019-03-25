@@ -1,11 +1,9 @@
 package jnegmas.apps.scml.common;
 
-import jnegmas.BaseCopyable;
+import jnegmas.PyCopyable;
 import jnegmas.situated.Contract;
 
-import java.util.HashMap;
-
-public class Job extends BaseCopyable {
+public class Job implements PyCopyable {
     public int profile;
     public int time;
     public int line;

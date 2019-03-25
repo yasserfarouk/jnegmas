@@ -1,12 +1,13 @@
 package jnegmas.sao;
 
-import jnegmas.common.MechanismInfo;
+import jnegmas.PyCallable;
 import jnegmas.common.MechanismState;
+import jnegmas.common.PythonMechanismInfo;
 import jnegmas.utilities.UtilityFunction;
 
 import java.util.HashMap;
 
-public interface SAONegotiator {
+public interface SAONegotiator extends PyCallable {
 
     /**
      * Respond to an outcome
@@ -15,52 +16,36 @@ public interface SAONegotiator {
      * @param outcome The outcome to respond to
      * @return 0 for acceptance, 1 for rejection, 2 to end the negotiation, and 3 for no-response
      */
-    int respond(MechanismState state, HashMap<String, Object> outcome) throws IllegalAccessException;
+    int respond(MechanismState state, HashMap<String, Object> outcome);
 
-    HashMap<String, Object> propose(MechanismState state) throws IllegalAccessException;
+    HashMap<String, Object> propose(MechanismState state);
 
     // General Nagotiator callbacks
-    boolean on_enter(MechanismInfo info, MechanismState state
-            , UtilityFunction ufun, String role
-            , double cost_per_round
-            , double power_per_round
-            , double discount_per_round
-            , double cost_per_relative_time
-            , double power_per_relative_time
-            , double discount_per_relative_time
-            , double cost_per_real_time
-            , double power_per_real_time
-            , double discount_per_real_time
-            , boolean dynamic_reservation);
-
-    boolean on_enter(MechanismInfo info, MechanismState state
+    boolean onEnter(PythonMechanismInfo info, MechanismState state
             , UtilityFunction ufun, String role);
-    boolean on_enter(MechanismInfo info, MechanismState state
-            , UtilityFunction ufun);
-    boolean on_enter(MechanismInfo info, MechanismState state);
 
-    void on_negotiation_start(MechanismState state);
+    void onNegotiationStart(MechanismState state);
 
-    void on_round_start(MechanismState state);
+    void onRoundStart(MechanismState state);
 
-    void on_mechanism_error(MechanismState state);
+    void onMechanismError(MechanismState state);
 
-    void on_round_end(MechanismState state);
+    void onRoundEnd(MechanismState state);
 
-    void on_leave(MechanismState state);
+    void onLeave(MechanismState state);
 
-    void on_negotiation_end(MechanismState state);
+    void onNegotiationEnd(MechanismState state);
 
 
     // SAO specific call backs
 
-    void on_partner_proposal(MechanismState state, String agent_id, HashMap<String, Object> offer);
+    void onPartnerProposal(MechanismState state, String agentId, HashMap<String, Object> offer);
 
-    void on_partner_refused_to_propose(MechanismState state, String agent_id);
+    void onPartnerRefusedToPropose(MechanismState state, String agentId);
 
-    void on_partner_response(MechanismState state, String agent_id, HashMap<String, Object> offer
-            , int response, HashMap<String, Object> counter_offer);
+    void onPartnerResponse(MechanismState state, String agentId, HashMap<String, Object> offer
+            , int response, HashMap<String, Object> counterOffer);
 
-    void on_notification(HashMap<String, Object> notification, String notifier);
+    void onNotification(HashMap<String, Object> notification, String notifier);
 
 }

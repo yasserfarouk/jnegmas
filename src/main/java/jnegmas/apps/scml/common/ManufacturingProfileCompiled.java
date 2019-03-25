@@ -1,27 +1,27 @@
 package jnegmas.apps.scml.common;
 
-import jnegmas.BaseCopyable;
+import jnegmas.PyCopyable;
 
 import java.util.HashMap;
 
-public class ManufacturingProfileCompiled extends BaseCopyable {
-    public int n_steps;
+public class ManufacturingProfileCompiled implements PyCopyable {
+    public int nSteps;
     public double cost;
-    public double initial_pause_cost;
-    public double running_pause_cost;
-    public double resumption_cost;
-    public double cancellation_cost;
+    public double initialPauseCost;
+    public double runningPauseCost;
+    public double resumptionCost;
+    public double cancellationCost;
     public int line;
     public int process;
 
     @Override
     public void fromMap(HashMap<String, Object> dict) {
-        n_steps = (int) dict.get("n_steps");
+        nSteps = (int) dict.get("nSteps");
         cost = (double) dict.get("cost");
-        initial_pause_cost = (double) dict.get("initial_pause_cost");
-        running_pause_cost = (double) dict.get("running_pause_cost");
-        resumption_cost = (double) dict.get("resumption_cost");
-        cancellation_cost = (double) dict.get("cancellation_cost");
+        initialPauseCost = (double) dict.get("initialPauseCost");
+        runningPauseCost = (double) dict.get("runningPauseCost");
+        resumptionCost = (double) dict.get("resumptionCost");
+        cancellationCost = (double) dict.get("cancellationCost");
         line = (int) dict.get("line");
         process = (int) dict.get("process");
     }
@@ -29,12 +29,12 @@ public class ManufacturingProfileCompiled extends BaseCopyable {
     @Override
     public HashMap<String, Object> toMap() {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("n_steps", n_steps);
+        map.put("nSteps", nSteps);
         map.put("cost", cost);
-        map.put("initial_pause_cost", initial_pause_cost);
-        map.put("running_pause_cost", running_pause_cost);
-        map.put("resumption_cost", resumption_cost);
-        map.put("cancellation_cost", cancellation_cost);
+        map.put("initialPauseCost", initialPauseCost);
+        map.put("runningPauseCost", runningPauseCost);
+        map.put("resumptionCost", resumptionCost);
+        map.put("cancellationCost", cancellationCost);
         map.put("line", line);
         map.put("process", process);
         return map;

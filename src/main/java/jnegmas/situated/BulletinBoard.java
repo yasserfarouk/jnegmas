@@ -3,7 +3,6 @@ package jnegmas.situated;
 import jnegmas.PyCallable;
 
 import java.util.HashMap;
-import java.util.Optional;
 
 /**
  * The interface to a bulletin board. Each world has one such bulletin board.
@@ -11,15 +10,14 @@ import java.util.Optional;
  * any records they created
  *
  */
-public interface PyBulletinBoard extends PyCallable {
+public interface BulletinBoard extends PyCallable {
 
-    // void add_section(String name);
-
-    Optional<HashMap<String, Object>> query(String section, Query query, boolean query_keys);
-    Optional<Object> read(String section, String key);
+    void addSection(String name);
+    HashMap<String, Object> query(String section, HashMap<String, Object> query, boolean queryKeys);
+    Object read(String section, String key);
     void record(String section, Object value, String key);
     void record(String section, Object value);
-    void remove(String section, Query query, boolean query_keys);
+    void remove(String section, HashMap<String, Object> query, boolean queryKeys);
     void remove(String section, Object value);
     void remove(String section, String key);
 

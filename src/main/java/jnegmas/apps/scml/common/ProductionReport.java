@@ -1,10 +1,8 @@
 package jnegmas.apps.scml.common;
 
-import jnegmas.BaseCopyable;
+import jnegmas.PyCopyable;
 
-import java.util.HashMap;
-
-public class ProductionReport extends BaseCopyable {
+public class ProductionReport implements PyCopyable {
     public int line;
     public RunningCommandInfo started = null;
     public RunningCommandInfo continuing = null;

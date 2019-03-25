@@ -1,36 +1,36 @@
 package jnegmas.apps.scml.common;
 
-import jnegmas.BaseCopyable;
+import jnegmas.PyCopyable;
 
 import java.util.HashMap;
 
-public class Loan extends BaseCopyable {
+public class Loan implements PyCopyable {
     public double amount;
-    public int starts_at;
+    public int startsAt;
     public double total;
     public double interest;
     public double installment;
-    public int n_installments;
+    public int nInstallments;
     
     @Override
     public void fromMap(HashMap<String, Object> dict) {
         amount = (double) dict.get("amount");
-        starts_at = (int) dict.get("starts_at");
+        startsAt = (int) dict.get("startsAt");
         total = (double) dict.get("total");
         interest = (double) dict.get("interest");
         installment = (double) dict.get("installment");
-        n_installments = (int) dict.get("n_installments");
+        nInstallments = (int) dict.get("nInstallments");
     }
 
     @Override
     public HashMap<String, Object> toMap() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("amount", amount);
-        map.put("starts_at", starts_at);
+        map.put("startsAt", startsAt);
         map.put("total", total);
         map.put("interest", interest);
         map.put("installment", installment);
-        map.put("n_installments", n_installments);
+        map.put("nInstallments", nInstallments);
         return map;
     }
 }

@@ -19,6 +19,8 @@ public class JNegmasApp {
 
     public static<T extends PyCopyable> T fromMap(T object, HashMap<String, Object> dict) throws NoSuchFieldException
             , IllegalAccessException, InstantiationException {
+        if (dict.keySet().contains(PYTHON_CLASS_IDENTIFIER))
+            dict.remove(PYTHON_CLASS_IDENTIFIER);
         object.fromMap(dict);
         return object;
     }
@@ -30,29 +32,66 @@ public class JNegmasApp {
         return map;
     }
 
-    public static<T extends PyCopyable> T createFromMap(HashMap<String, Object> dict) throws NoSuchFieldException
+    /**
+     * Creates a Java object from a map (comping from python most likely).
+     * <p>The java class name will be taken from the python class name stored with the key `JNegmasApp.PYTHON_CLASS_IDENTIFIER`</p>
+     * @param map A map used to construct the object using fromMap.
+     * @return A PyCopyable object that is the Java version of the given map
+     * @throws NoSuchFieldException if the class that should be instantiated has a field not in the map
+     * @throws IllegalArgumentException if the map does not contain the class name to be instantiated as the value for key `JNegmasApp.PYTHON_CLASS_IDENTIFIER`
+     *
+     *
+     */
+    public static PyCopyable createJavaObjectFromMap(HashMap<String, Object> map) throws NoSuchFieldException
             , IllegalArgumentException {
-        if (!dict.containsKey(JNegmasApp.PYTHON_CLASS_IDENTIFIER)){
+        if (map == null){
+            throw new RuntimeException("Cannot create a java object from map without a map!!");
+        }
+        if (!map.containsKey(JNegmasApp.PYTHON_CLASS_IDENTIFIER)){
             throw new IllegalArgumentException();
         }
-        String java_class_name = String.format("j%s", dict.get(JNegmasApp.PYTHON_CLASS_IDENTIFIER));
-        return createFromMap(java_class_name, dict);
+        String javaClassName = String.format("j%s", map.get(JNegmasApp.PYTHON_CLASS_IDENTIFIER));
+        return createJavaObjectFromMap(javaClassName, map);
     }
-    public static<T extends PyCopyable> T createFromMap(String java_class_name, HashMap<String, Object> dict) throws NoSuchFieldException
-            , IllegalArgumentException {
+
+    /**
+     * Creates a Java object from a map (comping from python most likely) knowing the java class name.
+     *
+     * @param javaClassName The java class name
+     * @param map  The map
+     * @return the object created
+     * @throws NoSuchFieldException if the class that should be instantiated has a field not in the map
+     * @throws IllegalArgumentException if the map does not contain the class name to be instantiated as the value for key `JNegmasApp.PYTHON_CLASS_IDENTIFIER`
+     */
+    public static PyCopyable createJavaObjectFromMap(String javaClassName
+            , HashMap<String, Object> map) throws NoSuchFieldException, IllegalArgumentException {
         try {
-            Class cls = Class.forName(java_class_name);
-            return JNegmasApp.fromMap((T) cls.newInstance(), dict);
+            Class<?> cls = Class.forName(javaClassName);
+            if (PyCopyable.class.isAssignableFrom(cls)){
+                return JNegmasApp.fromMap((PyCopyable) cls.newInstance(), map);
+            }
+            throw new InstantiationException(String.format("Class %s is not PyCopyable", cls.getName()));
         } catch (IllegalAccessException | InstantiationException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         throw new IllegalArgumentException();
     }
 
-    public Object create(String class_name){
-        System.out.format("Creating %s\n", class_name);
+    /**
+     * Creates a python object (in the python program connected through the gateway).
+     *
+     * @param pythonClassName The full name of the class of which an object is to be created
+     * @param kwargs The parameters to be passed to the constructor
+     * @return An object that represents a python object to be called later.
+     */
+    public static Object createPythonObjectFromMap(String pythonClassName, HashMap<String, Object> kwargs) {
+        return python.create(pythonClassName, kwargs);
+    }
+
+    public Object create(String className){
+        System.out.format("Creating %s\n", className);
         try {
-            Class<?> clazz = Class.forName(class_name);
+            Class<?> clazz = Class.forName(className);
             return clazz.newInstance();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
@@ -65,12 +104,11 @@ public class JNegmasApp {
     }
 
 
-
-    public PyCaller create(String class_name, PyCallable python_object){
-        System.out.format("Creating %s with python object\n", class_name);
-        PyCaller java_object = (PyCaller) create(class_name);
-        java_object.setPythonShadow(python_object);
-        return java_object;
+    public PyCaller create(String className, Object pythonObject){
+        System.out.format("Creating %s with python object\n", className);
+        PyCaller javaObject = (PyCaller) create(className);
+        javaObject.setPythonShadow(pythonObject);
+        return javaObject;
     }
 
     public static void usage(){
@@ -81,7 +119,7 @@ public class JNegmasApp {
                 "The Python side should use the same client-server/gateway setting and connect to the same port");
     }
 
-    static int parse_port(String[] args, int i, String opt){
+    static int parsePort(String[] args, int i, String opt){
         int port = 0;
         if (i < args.length - 1) {
             try {
@@ -102,9 +140,9 @@ public class JNegmasApp {
 
     public static void main(String[] args) {
         int port = DEFAULT_JAVA_PORT;
-        int python_port = DEFAULT_PYTHON_PORT;
+        int pythonPort = DEFAULT_PYTHON_PORT;
         boolean dieOnBrokenPipe=false;
-        boolean use_client_server=true;
+        boolean useClientServer=true;
         System.out.format("Received options: ");
         for (int i = 0; i < args.length; i++) {
             String opt = args[i];
@@ -112,15 +150,15 @@ public class JNegmasApp {
             if (opt.equals("--die-on-exit") || opt.equals("--doe") || opt.equals("-d")) {
                 dieOnBrokenPipe = true;
             } else if (opt.equals("--client-server") || opt.equals("--single-thread")){
-                use_client_server = true;
+                useClientServer = true;
             } else if (opt.equals("--gateway") || opt.equals("--multiple-threads")){
-                use_client_server = false;
+                useClientServer = false;
             } else if (opt.equals("-p") || opt.equals("--port") || opt.equals("--java-port")
                     || opt.equals("--jport")){
-                port = parse_port(args, i, opt);
+                port = parsePort(args, i, opt);
                 i++;
             } else if (opt.equals("--python-port") || opt.equals("--pyport")){
-                python_port = parse_port(args, i, opt);
+                pythonPort = parsePort(args, i, opt);
                 i++;
             }else{
                 System.out.format("Unknown argument: %s\n\n", opt);
@@ -130,10 +168,10 @@ public class JNegmasApp {
         }
         System.out.format("\n");
         JNegmasApp app = new JNegmasApp();
-        if (use_client_server) {
-            // app is now the gateway.entry_point
+        if (useClientServer) {
+            // app is now the gateway.entryPoint
             ClientServer server = new ClientServer(DEFAULT_JAVA_PORT, GatewayServer.defaultAddress()
-                    , python_port,
+                    , pythonPort,
                     GatewayServer.defaultAddress(), GatewayServer.DEFAULT_CONNECT_TIMEOUT,
                     GatewayServer.DEFAULT_READ_TIMEOUT, ServerSocketFactory.getDefault()
                     , SocketFactory.getDefault(),
@@ -145,9 +183,9 @@ public class JNegmasApp {
             GatewayServer server = new GatewayServer(app, port);
             server.start();
             python = (PyEntryPoint) server.getPythonServerEntryPoint(new Class[] {PyEntryPoint.class});
-            int listening_port = server.getListeningPort();
+            int listeningPort = server.getListeningPort();
             System.out.format("Gateway to NegMAS started at port %d listening to port %d (multiple-threads)\n"
-                    , port, listening_port);
+                    , port, listeningPort);
         }
 
         if (dieOnBrokenPipe) {

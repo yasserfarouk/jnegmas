@@ -1,16 +1,15 @@
 package jnegmas.apps.scml.common;
 
-import jnegmas.BaseCopyable;
+import jnegmas.PyCopyable;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
-public class ProductionFailure extends BaseCopyable {
+public class ProductionFailure implements PyCopyable {
     public int line;
     public RunningCommandInfo command;
-    public ArrayList<MissingInput> missing_inputs = new ArrayList<>();
-    public double missing_money;
-    public int missing_space;
+    public ArrayList<MissingInput> missingInputs = new ArrayList<>();
+    public double missingMoney;
+    public int missingSpace;
 
     /*
     @Override
@@ -24,9 +23,9 @@ public class ProductionFailure extends BaseCopyable {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-        missing_inputs = (ArrayList<MissingInput>) dict.get("missing_inputs");
-        missing_money = (double) dict.get("missing_money");
-        missing_space = (int) dict.get("missing_space");
+        missingInputs = (ArrayList<MissingInput>) dict.get("missingInputs");
+        missingMoney = (double) dict.get("missingMoney");
+        missingSpace = (int) dict.get("missingSpace");
     }
 
     @Override
@@ -34,9 +33,9 @@ public class ProductionFailure extends BaseCopyable {
         HashMap<String, Object> map = new HashMap<>();
         map.put("line", line);
         map.put("command", command == null? null : command.toMap());
-        map.put("missing_inputs", missing_inputs);
-        map.put("missing_money", missing_money);
-        map.put("missing_space", missing_space);
+        map.put("missingInputs", missingInputs);
+        map.put("missingMoney", missingMoney);
+        map.put("missingSpace", missingSpace);
         return map;
     }
     */

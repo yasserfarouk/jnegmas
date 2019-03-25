@@ -1,15 +1,14 @@
 package jnegmas.apps.scml.common;
 
-import jnegmas.BaseCopyable;
+import jnegmas.PyCopyable;
 
-import java.util.HashMap;
-
-public class ProductManufacturingInfo extends BaseCopyable {
+public class ProductManufacturingInfo implements PyCopyable {
 
     public int profile;
     public int quantity;
     public int step;
-    
+
+    /*
     @Override
     public void fromMap(HashMap<String, Object> dict) {
         profile = (int) dict.get("profile");
@@ -24,5 +23,5 @@ public class ProductManufacturingInfo extends BaseCopyable {
         map.put("quantity", quantity);
         map.put("step", step);
         return map;
-    }
+    }*/
 }

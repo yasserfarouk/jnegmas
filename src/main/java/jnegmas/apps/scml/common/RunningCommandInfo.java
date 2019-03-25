@@ -1,10 +1,10 @@
 package jnegmas.apps.scml.common;
 
-import jnegmas.BaseCopyable;
+import jnegmas.PyCopyable;
 
 import java.util.HashMap;
 
-public class RunningCommandInfo extends BaseCopyable {
+public class RunningCommandInfo implements PyCopyable {
     public ManufacturingProfile profile;
     public int beg;
     public int end;

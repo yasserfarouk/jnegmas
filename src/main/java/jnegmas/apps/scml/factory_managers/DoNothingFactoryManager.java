@@ -1,17 +1,19 @@
 package jnegmas.apps.scml.factory_managers;
 
-import jnegmas.apps.scml.common.*;
-import jnegmas.common.MechanismInfo;
+import jnegmas.apps.scml.common.CFP;
+import jnegmas.apps.scml.common.Loan;
+import jnegmas.apps.scml.common.ProductionFailure;
+import jnegmas.apps.scml.common.RenegotiationRequest;
 import jnegmas.common.MechanismState;
-import jnegmas.sao.PySAONegotiator;
+import jnegmas.common.PythonMechanismInfo;
+import jnegmas.sao.SAONegotiator;
 import jnegmas.situated.Breach;
 import jnegmas.situated.Contract;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Optional;
 
-public class DoNothingFactoryManager extends AbstractFactoryManager {
+public class DoNothingFactoryManager extends BaseFactoryManager {
     @Override
     public void init() {
 
@@ -23,78 +25,88 @@ public class DoNothingFactoryManager extends AbstractFactoryManager {
     }
 
     @Override
-    public void on_contract_nullified(Contract contract, String bankrupt_partner, double compensation) {
+    public void onNewCFP(CFP cfp) {
 
     }
 
     @Override
-    public void on_agent_bankrupt(String agent_id) {
+    public void onRemoveCFP(CFP cfp) {
 
     }
 
     @Override
-    public boolean confirm_partial_execution(Contract contract, ArrayList<Breach> breaches) {
+    public void onContractNullified(Contract contract, String bankruptPartner, double compensation) {
+
+    }
+
+    @Override
+    public void onAgentBankrupt(String agentId) {
+
+    }
+
+    @Override
+    public boolean confirmPartialExecution(Contract contract, ArrayList<Breach> breaches) {
         return false;
     }
 
     @Override
-    public void on_production_failure(ArrayList<ProductionFailure> failures) {
+    public void onProductionFailure(ArrayList<ProductionFailure> failures) {
 
     }
 
     @Override
-    public boolean confirm_loan(Loan loan, boolean bankrupt_if_rejected) {
+    public boolean confirmLoan(Loan loan, boolean bankruptIfRejected) {
         return false;
     }
 
     @Override
-    public boolean confirm_contract_execution(Contract contract) {
+    public boolean confirmContractExecution(Contract contract) {
         return false;
     }
 
     @Override
-    public PySAONegotiator on_negotiation_request(CFP cfp, String partner) {
+    public SAONegotiator onNegotiationRequest(CFP cfp, String partner) {
         return null;
     }
 
     @Override
-    public void on_negotiation_failure(ArrayList<String> partners, HashMap<String, Object> annotation
-            , MechanismInfo mechanis, MechanismState state) {
+    public void onNegotiationSuccess(Contract contract, PythonMechanismInfo mechanism) {
 
     }
 
     @Override
-    public void on_negotiation_success(Contract contract, MechanismInfo mechanism) {
+    public void onNegotiationFailure(ArrayList<String> partners, HashMap<String, Object> annotation, PythonMechanismInfo mechanism, MechanismState state) {
+
+    }
+
+
+    @Override
+    public void onContractSigned(Contract contract) {
 
     }
 
     @Override
-    public void on_contract_signed(Contract contract) {
+    public void onContractCancelled(Contract contract, ArrayList<String> rejectors) {
 
     }
 
     @Override
-    public void on_contract_cancelled(Contract contract, ArrayList<String> rejectors) {
-
-    }
-
-    @Override
-    public Optional<String> sign_contract(Contract contract) {
-        return Optional.empty();
-    }
-
-    @Override
-    public Optional<RenegotiationRequest> set_renegotiation_agenda(Contract contract, ArrayList<HashMap<String, Breach>> breaches) {
-        return Optional.empty();
-    }
-
-    @Override
-    public PySAONegotiator respond_to_renegotiation_request(Contract contract, ArrayList<HashMap<String, Breach>> breaches, RenegotiationRequest agenda) {
+    public String signContract(Contract contract) {
         return null;
     }
 
     @Override
-    public boolean on_renegotiation_request(Contract contract, CFP cfp, String partner) {
+    public RenegotiationRequest setRenegotiationAgenda(Contract contract, ArrayList<HashMap<String, Breach>> breaches) {
+        return null;
+    }
+
+    @Override
+    public SAONegotiator respondToRenegotiationRequest(Contract contract, ArrayList<HashMap<String, Breach>> breaches, RenegotiationRequest agenda) {
+        return null;
+    }
+
+    @Override
+    public boolean onRenegotiationRequest(Contract contract, CFP cfp, String partner) {
         return false;
     }
 

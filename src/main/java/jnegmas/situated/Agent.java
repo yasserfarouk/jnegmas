@@ -1,6 +1,7 @@
 package jnegmas.situated;
 
-import jnegmas.BaseCopyable;
+import jnegmas.PyCopyable;
 
-public class Agent extends BaseCopyable {
+public class Agent implements PyCopyable {
+
 }

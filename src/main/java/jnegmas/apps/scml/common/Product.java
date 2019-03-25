@@ -1,37 +1,35 @@
 package jnegmas.apps.scml.common;
 
-import jnegmas.BaseCopyable;
+import jnegmas.PyCopyable;
 
-import java.util.HashMap;
-
-public class Product extends BaseCopyable {
+public class Product implements PyCopyable {
     public int id;
-    public int production_level;
+    public int productionLevel;
     public String name = "";
-    public Integer expires_in = null;
-    public Double catalog_price = null;
+    public Integer expiresIn = null;
+    public Double catalogPrice = null;
 
     public String toString(){
-        return String.format("%s (%f)", name, catalog_price);
+        return String.format("%s (%f)", name, catalogPrice);
     }
 
-    @Override
+    /*@Override
     public void fromMap(HashMap<String, Object> dict) {
         id = (int) dict.get("id");
-        production_level = (int) dict.get("production_level");
+        productionLevel = (int) dict.get("productionLevel");
         name = (String) dict.get("name");
-        expires_in = (Integer) dict.get("expires_in");
-        catalog_price = (Double) dict.get("catalog_price");
+        expiresIn = (Integer) dict.get("expiresIn");
+        catalogPrice = (Double) dict.get("catalogPrice");
     }
 
     @Override
     public HashMap<String, Object> toMap() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("id", id);
-        map.put("production_level", production_level);
+        map.put("productionLevel", productionLevel);
         map.put("name", name);
-        map.put("expires_in", expires_in);
-        map.put("catalog_price", catalog_price);
+        map.put("expiresIn", expiresIn);
+        map.put("catalogPrice", catalogPrice);
         return map;
-    }
+    }*/
 }

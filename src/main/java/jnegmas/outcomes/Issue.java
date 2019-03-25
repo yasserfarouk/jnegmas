@@ -1,6 +1,6 @@
 package jnegmas.outcomes;
 
-import jnegmas.BaseCopyable;
+import jnegmas.PyCopyable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,7 +19,7 @@ enum IssueType{
 /**
  * Represents an Issue that can be the subject of a negotiation.
  */
-public class Issue extends BaseCopyable {
+public class Issue implements PyCopyable {
     ArrayList<String> strValues;
     ArrayList<Integer> intValues;
     ArrayList<Double> doubleValues;
@@ -30,7 +30,7 @@ public class Issue extends BaseCopyable {
 
     @Override
     public void fromMap(HashMap<String, Object> dict) {
-        switch ((int) dict.get("type")) {
+        switch (((Number) dict.get("type")).intValue()) {
             case 0:
                 type = IssueType.ListOfStrings;
                 this.strValues = (ArrayList<String>) dict.get("values");

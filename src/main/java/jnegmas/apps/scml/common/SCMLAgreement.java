@@ -6,10 +6,10 @@ import java.util.HashMap;
 
 public class SCMLAgreement extends HashMap<String, Object> implements PyCopyable {
     public int time;
-    public double unit_price;
+    public double unitPrice;
     public int quantity;
     public Integer penalty = null;
-    public int signing_delay = -1;
+    public int signingDelay = -1;
 
     @Override
     public String getPythonClassName() {
@@ -19,20 +19,20 @@ public class SCMLAgreement extends HashMap<String, Object> implements PyCopyable
     @Override
     public void fromMap(HashMap<String, Object> dict) {
         time = (int) dict.get("time");
-        unit_price = (double) dict.get("unit_price");
+        unitPrice = (double) dict.get("unitPrice");
         quantity = (int) dict.get("quantity");
         penalty = (Integer) dict.get("penalty");
-        signing_delay = (int) dict.get("signing_delay");
+        signingDelay = (int) dict.get("signingDelay");
     }
 
     @Override
     public HashMap<String, Object> toMap() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("time", time);
-        map.put("unit_price", unit_price);
+        map.put("unitPrice", unitPrice);
         map.put("quantity", quantity);
         map.put("penalty", penalty);
-        map.put("signing_delay", signing_delay);
+        map.put("signingDelay", signingDelay);
         return map;
     }
 }

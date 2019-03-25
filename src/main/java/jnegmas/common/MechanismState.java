@@ -1,16 +1,16 @@
 package jnegmas.common;
 
-import jnegmas.BaseCopyable;
+import jnegmas.PyCopyable;
 
 import java.util.HashMap;
 
-public class MechanismState extends BaseCopyable {
-    public boolean running, started, broken, timedout, has_error;
-    public int step, n_negotiators;
-    public double time, relative_time;
+public class MechanismState implements PyCopyable {
+    public boolean running, started, broken, timedout, hasError;
+    public int step, nNegotiators;
+    public double time, relativeTime;
     public HashMap<String, Object> agreement;
-    public String error_details;
-    public MechanismInfo info;
+    public String errorDetails;
+    public PythonMechanismInfo info;
 
     public boolean ended(){
         return started && (broken || timedout || (agreement == null));

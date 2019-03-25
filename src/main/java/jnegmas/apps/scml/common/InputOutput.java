@@ -1,10 +1,8 @@
 package jnegmas.apps.scml.common;
 
-import jnegmas.BaseCopyable;
+import jnegmas.PyCopyable;
 
-import java.util.HashMap;
-
-public class InputOutput extends BaseCopyable {
+public class InputOutput implements PyCopyable {
     public int product;
     public int quantity;
     public double step;
