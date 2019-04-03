@@ -13,18 +13,18 @@ public class ProductionNeed implements PyCopyable {
 
     /*
     @Override
-    public void fromMap(HashMap<String, Object> dict) throws NoSuchFieldException, IllegalAccessException {
+    public void fromMap(Map<String, Object> dict) throws NoSuchFieldException, IllegalAccessException {
         product = (int) dict.get("product");
         quantityToBuy = (int) dict.get("quantityToBuy");
         quantityInStorage = (int) dict.get("quantityInStorage");
         step = (int) dict.get("step");
         neededFor = new Contract();
-        neededFor.fromMap((HashMap<String, Object>) dict.get("neededFor"));
+        neededFor.fromMap((Map<String, Object>) dict.get("neededFor"));
     }
 
     @Override
-    public HashMap<String, Object> toMap() throws IllegalAccessException {
-        HashMap<String, Object> map = new HashMap<>();
+    public Map<String, Object> toMap() throws IllegalAccessException {
+        Map<String, Object> map = new HashMap<>();
         map.put("product", product);
         map.put("quantityToBuy", quantityToBuy);
         map.put("quantityInStorage", quantityInStorage);

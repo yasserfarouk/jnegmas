@@ -3,6 +3,7 @@ package jnegmas.apps.scml.common;
 import jnegmas.PyCopyable;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class MissingInput implements PyCopyable {
     public int product;
@@ -11,18 +12,19 @@ public class MissingInput implements PyCopyable {
     public String toString(){
         return String.format("%d: %d", product, quantity);
     }
-
+/*
     @Override
-    public void fromMap(HashMap<String, Object> dict) {
-        product = (int) dict.get("product");
-        quantity = (int) dict.get("quantity");
+    public void fromMap(Map<String, Object> map) {
+        product = (int) map.get("product");
+        quantity = (int) map.get("quantity");
     }
 
     @Override
-    public HashMap<String, Object> toMap() {
-        HashMap<String, Object> map = new HashMap<>();
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new HashMap<>();
         map.put("product", product);
         map.put("quantity", quantity);
         return map;
     }
+    */
 }

@@ -5,13 +5,10 @@ import java.lang.reflect.Method;
 
 public abstract class AbstractHandler<T> implements InvocationHandler {
 
-    T shadow;
+    T target;
 
-    public AbstractHandler(){
-
-    }
     public AbstractHandler(T pythonObject){
-        shadow = pythonObject;
+        target = pythonObject;
     }
 
     abstract Object convert(Object arg);
@@ -19,13 +16,14 @@ public abstract class AbstractHandler<T> implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         if ((args == null) || (args.length < 1)){
-            return method.invoke(shadow, args);
+            return method.invoke(target, args);
         }
         Object[] converted = new Object[args.length];
         for(int i=0; i< args.length; i++){
             converted[i] = convert(args[i]);
         }
-        return convert(method.invoke(shadow, converted));
+        Object result = method.invoke(target, converted);
+        return convert(result);
     }
 
 }

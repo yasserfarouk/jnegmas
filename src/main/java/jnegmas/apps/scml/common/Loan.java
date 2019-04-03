@@ -3,6 +3,7 @@ package jnegmas.apps.scml.common;
 import jnegmas.PyCopyable;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class Loan implements PyCopyable {
     public double amount;
@@ -12,19 +13,19 @@ public class Loan implements PyCopyable {
     public double installment;
     public int nInstallments;
     
-    @Override
-    public void fromMap(HashMap<String, Object> dict) {
-        amount = (double) dict.get("amount");
-        startsAt = (int) dict.get("startsAt");
-        total = (double) dict.get("total");
-        interest = (double) dict.get("interest");
-        installment = (double) dict.get("installment");
-        nInstallments = (int) dict.get("nInstallments");
+    /*@Override
+    public void fromMap(Map<String, Object> map) {
+        amount = (double) map.get("amount");
+        startsAt = (int) map.get("startsAt");
+        total = (double) map.get("total");
+        interest = (double) map.get("interest");
+        installment = (double) map.get("installment");
+        nInstallments = (int) map.get("nInstallments");
     }
 
     @Override
-    public HashMap<String, Object> toMap() {
-        HashMap<String, Object> map = new HashMap<>();
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new HashMap<>();
         map.put("amount", amount);
         map.put("startsAt", startsAt);
         map.put("total", total);
@@ -32,5 +33,5 @@ public class Loan implements PyCopyable {
         map.put("installment", installment);
         map.put("nInstallments", nInstallments);
         return map;
-    }
+    }*/
 }

@@ -24,23 +24,23 @@ public class ProductionReport implements PyCopyable {
 
     /*
     @Override
-    public void fromMap(HashMap<String, Object> dict) throws NoSuchFieldException, IllegalAccessException {
+    public void fromMap(Map<String, Object> dict) throws NoSuchFieldException, IllegalAccessException {
         line = (int) dict.get("line");
         continuing = new RunningCommandInfo();
-        continuing.fromMap((HashMap<String, Object>) dict.get("continuing"));
+        continuing.fromMap((Map<String, Object>) dict.get("continuing"));
         started = new RunningCommandInfo();
-        started.fromMap((HashMap<String, Object>) dict.get("started"));
+        started.fromMap((Map<String, Object>) dict.get("started"));
         finished = new RunningCommandInfo();
-        finished.fromMap((HashMap<String, Object>) dict.get("finished"));
+        finished.fromMap((Map<String, Object>) dict.get("finished"));
         failure = new ProductionFailure();
-        failure.fromMap((HashMap<String, Object>) dict.get("failure"));
+        failure.fromMap((Map<String, Object>) dict.get("failure"));
         updates = new FactoryStatusUpdate();
-        updates.fromMap((HashMap<String, Object>) dict.get("updates"));
+        updates.fromMap((Map<String, Object>) dict.get("updates"));
     }
 
     @Override
-    public HashMap<String, Object> toMap() throws IllegalAccessException {
-        HashMap<String, Object> map = new HashMap<>();
+    public Map<String, Object> toMap() throws IllegalAccessException {
+        Map<String, Object> map = new HashMap<>();
         map.put("line", line);
         map.put("started", started == null? null : started.toMap());
         map.put("continuing", continuing == null? null : continuing.toMap());

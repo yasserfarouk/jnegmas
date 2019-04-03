@@ -3,7 +3,7 @@ package jnegmas.apps.scml.simulators;
 import jnegmas.PyCaller;
 import jnegmas.apps.scml.common.Job;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class PythonFactorySimulator extends PyCaller<FactorySimulator> implements FactorySimulator {
     public PythonFactorySimulator(){
@@ -29,7 +29,7 @@ public class PythonFactorySimulator extends PyCaller<FactorySimulator> implement
     }
 
     @Override
-    public ArrayList<Integer> initialStorage() {
+    public List<Integer> initialStorage() {
         return shadow.initialStorage();
     }
 
@@ -44,7 +44,7 @@ public class PythonFactorySimulator extends PyCaller<FactorySimulator> implement
     }
 
     @Override
-    public ArrayList<Double> walletTo(int t) {
+    public List<Double> walletTo(int t) {
         return shadow.walletTo(t);
     }
 
@@ -54,27 +54,27 @@ public class PythonFactorySimulator extends PyCaller<FactorySimulator> implement
     }
 
     @Override
-    public ArrayList<Integer> storageTo(int t) {
+    public List<Integer> storageTo(int t) {
         return shadow.storageTo(t);
     }
 
     @Override
-    public ArrayList<Integer> storageAt(int t) {
+    public List<Integer> storageAt(int t) {
         return shadow.storageAt(t);
     }
 
     @Override
-    public ArrayList<Integer> lineSchedulesTo(int t) {
+    public List<Integer> lineSchedulesTo(int t) {
         return shadow.lineSchedulesTo(t);
     }
 
     @Override
-    public ArrayList<Integer> lineSchedulesAt(int t) {
+    public List<Integer> lineSchedulesAt(int t) {
         return shadow.lineSchedulesAt(t);
     }
 
     @Override
-    public ArrayList<Integer> totalStorageTo(int t) {
+    public List<Integer> totalStorageTo(int t) {
         return shadow.totalStorageTo(t);
     }
 
@@ -84,27 +84,27 @@ public class PythonFactorySimulator extends PyCaller<FactorySimulator> implement
     }
 
     @Override
-    public ArrayList<Integer> reservedStorageTo(int t) {
+    public List<Integer> reservedStorageTo(int t) {
         return shadow.reservedStorageTo(t);
     }
 
     @Override
-    public ArrayList<Integer> reservedStorageAt(int t) {
+    public List<Integer> reservedStorageAt(int t) {
         return shadow.reservedStorageAt(t);
     }
 
     @Override
-    public ArrayList<Integer> availableStorageAt(int t) {
+    public List<Integer> availableStorageAt(int t) {
         return shadow.availableStorageAt(t);
     }
 
     @Override
-    public ArrayList<Integer> availableStorageTo(int t) {
+    public List<Integer> availableStorageTo(int t) {
         return shadow.availableStorageTo(t);
     }
 
     @Override
-    public ArrayList<Double> loansTo(int t) {
+    public List<Double> loansTo(int t) {
         return shadow.loansTo(t);
     }
 
@@ -119,7 +119,7 @@ public class PythonFactorySimulator extends PyCaller<FactorySimulator> implement
     }
 
     @Override
-    public ArrayList<Double> balanceTo(int t) {
+    public List<Double> balanceTo(int t) {
         return shadow.balanceTo(t);
     }
 
@@ -129,7 +129,7 @@ public class PythonFactorySimulator extends PyCaller<FactorySimulator> implement
     }
 
     @Override
-    public void setState(int t, ArrayList<Integer> storage, double wallet, double loans, ArrayList<Integer> lineSchedules) {
+    public void setState(int t, List<Integer> storage, double wallet, double loans, List<Integer> lineSchedules) {
         shadow.setState(t, storage, wallet, loans, lineSchedules);
     }
 

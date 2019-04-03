@@ -4,10 +4,11 @@ import jnegmas.PyCaller;
 import jnegmas.apps.scml.common.CFP;
 import jnegmas.apps.scml.common.Process;
 import jnegmas.apps.scml.common.Product;
+import jnegmas.outcomes.Issue;
 import jnegmas.situated.Contract;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PythonSCMLAWI extends PyCaller<SCMLAWI> implements SCMLAWI{
     public PythonSCMLAWI(SCMLAWI shadow){
@@ -25,12 +26,12 @@ public class PythonSCMLAWI extends PyCaller<SCMLAWI> implements SCMLAWI{
     }
 
     @Override
-    public void registerInterest(ArrayList<Integer> products) {
+    public void registerInterest(List<Integer> products) {
         shadow.registerInterest(products);
     }
 
     @Override
-    public void unregisterInterest(ArrayList<Integer> products) {
+    public void unregisterInterest(List<Integer> products) {
         shadow.unregisterInterest(products);
     }
 
@@ -50,12 +51,18 @@ public class PythonSCMLAWI extends PyCaller<SCMLAWI> implements SCMLAWI{
     }
 
     @Override
-    public ArrayList<Product> getProducts() throws NoSuchFieldException, IllegalAccessException {
+    public boolean requestNegotiation(CFP cfp, String reqId, List<String> roles, String mechanismName
+            , Map<String, Object> mechanismParams) {
+        return shadow.requestNegotiation(cfp, reqId, roles, mechanismName, mechanismParams);
+    }
+
+    @Override
+    public List<Product> getProducts() throws NoSuchFieldException, IllegalAccessException {
         return shadow.getProducts();
     }
 
     @Override
-    public ArrayList<Process> getProcesses() throws NoSuchFieldException, IllegalAccessException {
+    public List<Process> getProcesses() throws NoSuchFieldException, IllegalAccessException {
         return shadow.getProcesses();
     }
 
@@ -85,13 +92,6 @@ public class PythonSCMLAWI extends PyCaller<SCMLAWI> implements SCMLAWI{
     public int getDefaultSigningDelay() {
 
         return shadow.getDefaultSigningDelay();
-    }
-
-    @Override
-    public boolean requestNegotiation(ArrayList<HashMap<String, Object>> issues, ArrayList<String> partners
-            , String reqId, ArrayList<String> roles, HashMap<String, Object> annotation, String mechanismName
-            , HashMap<String, Object> mechanismParams) {
-        return shadow.requestNegotiation(issues, partners, reqId, roles, annotation, mechanismName, mechanismParams);
     }
 
     @Override

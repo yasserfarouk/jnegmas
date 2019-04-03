@@ -1,51 +1,61 @@
 package jnegmas.sao;
 
 import jnegmas.PyCallable;
-import jnegmas.common.MechanismState;
-import jnegmas.common.PythonMechanismInfo;
+import jnegmas.PyCopyable;
+import jnegmas.common.PythonAgentMechanismInterface;
+import jnegmas.negotiators.Negotiator;
 import jnegmas.utilities.UtilityFunction;
 
-import java.util.HashMap;
+import java.util.Map;
 
-public interface SAONegotiator extends PyCallable {
-
+public interface SAONegotiator extends PyCallable, Negotiator, PyCopyable {
     /**
-     * Respond to an outcome
+     * Respond to an offer
      *
      * @param state The mechanism state
      * @param outcome The outcome to respond to
      * @return 0 for acceptance, 1 for rejection, 2 to end the negotiation, and 3 for no-response
      */
-    int respond(MechanismState state, HashMap<String, Object> outcome);
+    int respond(SAOState state, Map<String, Object> outcome);
 
-    HashMap<String, Object> propose(MechanismState state);
+    Map<String, Object> propose(SAOState state);
+
+    // negotiator functionality
+    boolean isIn(String negotiationID);
+
 
     // General Nagotiator callbacks
-    boolean onEnter(PythonMechanismInfo info, MechanismState state
-            , UtilityFunction ufun, String role);
+    boolean join(PythonAgentMechanismInterface info, SAOState state, UtilityFunction ufun, String role);
 
-    void onNegotiationStart(MechanismState state);
 
-    void onRoundStart(MechanismState state);
+    default void onNegotiationStart(SAOState state){}
 
-    void onMechanismError(MechanismState state);
+    default void onRoundStart(SAOState state){}
 
-    void onRoundEnd(MechanismState state);
+    default void onMechanismError(SAOState state){}
 
-    void onLeave(MechanismState state);
+    default void onRoundEnd(SAOState state){}
 
-    void onNegotiationEnd(MechanismState state);
+    default void onLeave(SAOState state){}
+
+    default void onNegotiationEnd(SAOState state){}
 
 
     // SAO specific call backs
 
-    void onPartnerProposal(MechanismState state, String agentId, HashMap<String, Object> offer);
+    default void onPartnerProposal(SAOState state, String agentId, Map<String, Object> offer){}
 
-    void onPartnerRefusedToPropose(MechanismState state, String agentId);
+    default void onPartnerRefusedToPropose(SAOState state, String agentId){}
 
-    void onPartnerResponse(MechanismState state, String agentId, HashMap<String, Object> offer
-            , int response, HashMap<String, Object> counterOffer);
+    default void onPartnerResponse(SAOState state, String agentId, Map<String, Object> offer
+            , int response, Map<String, Object> counterOffer){}
 
-    void onNotification(HashMap<String, Object> notification, String notifier);
+    default void onNotification(Map<String, Object> notification, String notifier){}
+
+    void setUtilityFunction(UtilityFunction ufun);
+    UtilityFunction getUtilityFunction();
+
+    void setID(String id);
+    String getID();
 
 }

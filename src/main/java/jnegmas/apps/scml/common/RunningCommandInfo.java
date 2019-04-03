@@ -2,7 +2,7 @@ package jnegmas.apps.scml.common;
 
 import jnegmas.PyCopyable;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public class RunningCommandInfo implements PyCopyable {
     public ManufacturingProfile profile;
@@ -11,28 +11,28 @@ public class RunningCommandInfo implements PyCopyable {
     public int step;
     public boolean paused;
     public String action;
-    public HashMap<Integer, FactoryStatusUpdate> updates;
+    public Map<Integer, FactoryStatusUpdate> updates;
 
     /*@Override
-    public void fromMap(HashMap<String, Object> dict) {
+    public void fromMap(Map<String, Object> dict) {
         try {
             profile = ManufacturingProfile.fromMap(new ManufacturingProfile()
-                    , (HashMap<String, Object>) dict.get("profile"));
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+                    , (Map<String, Object>) dict.get("profile"));
+        } catch (NoSuchFieldException aspirationType) {
+            aspirationType.printStackTrace();
+        } catch (IllegalAccessException aspirationType) {
+            aspirationType.printStackTrace();
         }
         beg = (int) dict.get("beg");
         end = (int) dict.get("end");
         step = (int) dict.get("step");
         paused = (boolean) dict.get("paused");
         action = (String) dict.get("action");
-        updates = (HashMap<Integer, FactoryStatusUpdate>) dict.get("updates");
+        updates = (Map<Integer, FactoryStatusUpdate>) dict.get("updates");
     }
 
     @Override
-    public HashMap<String, Object> toMap() {
+    public Map<String, Object> toMap() {
         return null;
     }*/
 }

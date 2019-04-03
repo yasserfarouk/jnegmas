@@ -11,18 +11,18 @@ public class InsurancePolicy implements PyCopyable {
 
     /*
     @Override
-    public void fromMap(HashMap<String, Object> dict) {
+    public void fromMap(Map<String, Object> dict) {
         premium = (double) dict.get("premium");
         atTime = (int) dict.get("atTime");
         contract = new Contract();
-        contract.fromMap((HashMap<String, Object>) dict.get("contract"));
+        contract.fromMap((Map<String, Object>) dict.get("contract"));
         against = new SCMLAgent();
-        against.fromMap((HashMap<String, Object>) dict.get("against"));
+        against.fromMap((Map<String, Object>) dict.get("against"));
     }
 
     @Override
-    public HashMap<String, Object> toMap() {
-        HashMap<String, Object> map = new HashMap<>();
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new HashMap<>();
         map.put("premium", premium);
         map.put("atTime", atTime);
         map.put("contract", PyCopyable.toMap(contract));

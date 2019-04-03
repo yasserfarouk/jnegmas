@@ -1,9 +1,10 @@
 package jnegmas.situated;
 
 import jnegmas.PyCallable;
+import jnegmas.outcomes.Issue;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -19,10 +20,6 @@ public interface AgentWorldInterface extends PyCallable {
     int getCurrentStep();
     int getNSteps();
     int getDefaultSigningDelay();
-
-    boolean requestNegotiation(ArrayList<HashMap<String, Object>> issues, ArrayList<String> partners, String reqId
-    , ArrayList<String> roles, HashMap<String, Object> annotation, String mechanismName
-    , HashMap<String, Object> mechanismParams);
 
     void loginfo(String msg);
     void logwarning(String msg);

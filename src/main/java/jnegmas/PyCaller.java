@@ -1,13 +1,11 @@
 package jnegmas;
 
 import java.lang.reflect.*;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 /**
- * Defines an object that implements its methods by calling a python shadow object.
+ * Defines an object that implements its methods by calling a python target object.
  *
  * Examples of classes in JNegmas that extend this one are AgentWorldInterface, and FactorySimulator. It is used when
  * there is no intention to implement the corresponding classes in Java and making them available to python code running
@@ -19,9 +17,6 @@ public class PyCaller<T> {
     protected Class<?> myInterface = null;
 
 
-    /**
-     * Gets my interface
-     */
     public Class<?> getInterface(){
         return myInterface;
     }
@@ -53,13 +48,6 @@ public class PyCaller<T> {
         }
     }
 
-    /**
-     * Get the actual type arguments a child class has used to extend a generic base class.
-     *
-     * @param baseClass the base class
-     * @param childClass the child class
-     * @return a list of the raw classes for the actual type arguments.
-     */
     public static <T> List<Class<?>> getTypeArguments(
             Class<T> baseClass, Class<? extends T> childClass) {
         Map<Type, Type> resolvedTypes = new HashMap<Type, Type>();
@@ -120,6 +108,8 @@ public class PyCaller<T> {
     }
 
     public void setPythonShadow(T pythonObject) {
+        shadow = pythonObject;
+        /*
         if (pythonObject == null) {
             shadow = null;
             return;
@@ -127,10 +117,11 @@ public class PyCaller<T> {
         if (myInterface == null){
             myInterface = getTypeArguments(PyCaller.class, getClass()).get(0);
         }
-        JavaToPythonHandler<T> javaToPythonHandler = new JavaToPythonHandler<>(pythonObject);
+        Converter converter = new Converter(pythonObject);
         shadow = (T) Proxy.newProxyInstance(myInterface.getClassLoader(),
                 new Class[]{myInterface},
-                javaToPythonHandler);
+                converter);
+        */
     }
 
     public T getPythonShadow() {
@@ -140,11 +131,11 @@ public class PyCaller<T> {
     /**
      * Creates a python object of the corresponding class and connects this object to it
      * @param kwargs Key-value pairs representing the parameters to pass to the constructor. Null will call the default.
-     * @throws NoSuchFieldException if a field does not exist in the python shadow
+     * @throws NoSuchFieldException if a field does not exist in the python target
      */
-    public void createPythonShadow(HashMap<String, Object> kwargs) throws NoSuchFieldException {
+    public void createPythonShadow(Map<String, Object> kwargs) throws NoSuchFieldException {
         String pythonClassName = getClass().getName().substring(1);
-        Object pythonObject = JNegmasApp.createPythonObjectFromMap(pythonClassName, kwargs);
+        Object pythonObject = JNegmasApp.createPythonShadowFromMap(pythonClassName, kwargs);
         if (pythonObject != null) {
             setPythonShadow((T) pythonObject);
             return;

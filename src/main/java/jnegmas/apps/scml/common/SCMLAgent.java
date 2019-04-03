@@ -17,13 +17,13 @@ public class SCMLAgent implements PyCopyable {
 
     /*
     @Override
-    public void fromMap(HashMap<String, Object> dict) {
+    public void fromMap(Map<String, Object> dict) {
         name = (String) dict.get("name");
     }
 
     @Override
-    public HashMap<String, Object> toMap() {
-        HashMap<String, Object> map = new HashMap<>();
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new HashMap<>();
         map.put("name", name);
         return map;
     }*/

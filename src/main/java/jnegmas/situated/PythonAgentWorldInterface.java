@@ -1,9 +1,10 @@
 package jnegmas.situated;
 
 import jnegmas.PyCaller;
+import jnegmas.outcomes.Issue;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Represents the interface between an agent and the world it is running in.
@@ -40,13 +41,6 @@ public class PythonAgentWorldInterface extends PyCaller<AgentWorldInterface> imp
     public int getDefaultSigningDelay() {
 
         return shadow.getDefaultSigningDelay();
-    }
-
-    @Override
-    public boolean requestNegotiation(ArrayList<HashMap<String, Object>> issues, ArrayList<String> partners
-            , String reqId, ArrayList<String> roles, HashMap<String, Object> annotation, String mechanismName
-            , HashMap<String, Object> mechanismParams) {
-        return shadow.requestNegotiation(issues, partners, reqId, roles, annotation, mechanismName, mechanismParams);
     }
 
     @Override

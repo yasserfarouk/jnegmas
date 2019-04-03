@@ -1,19 +1,19 @@
 package jnegmas.apps.scml.factory_managers;
 
-import jnegmas.apps.scml.common.CFP;
-import jnegmas.apps.scml.common.Loan;
-import jnegmas.apps.scml.common.ProductionFailure;
-import jnegmas.apps.scml.common.RenegotiationRequest;
+import jnegmas.apps.scml.common.*;
+import jnegmas.common.AgentMechanismInterface;
 import jnegmas.common.MechanismState;
-import jnegmas.common.PythonMechanismInfo;
+import jnegmas.common.PythonAgentMechanismInterface;
 import jnegmas.sao.SAONegotiator;
 import jnegmas.situated.Breach;
 import jnegmas.situated.Contract;
+import jnegmas.utilities.UtilityFunction;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class DoNothingFactoryManager extends BaseFactoryManager {
+public class DoNothingFactoryManager extends AbstractFactoryManager {
+
     @Override
     public void init() {
 
@@ -21,6 +21,16 @@ public class DoNothingFactoryManager extends BaseFactoryManager {
 
     @Override
     public void step() {
+
+    }
+
+    @Override
+    public void onNegRequestRejected(String req_id, List<String> rejectors) {
+
+    }
+
+    @Override
+    public void onNegRequestAccepted(String req_id, PythonAgentMechanismInterface mechanism) {
 
     }
 
@@ -45,37 +55,38 @@ public class DoNothingFactoryManager extends BaseFactoryManager {
     }
 
     @Override
-    public boolean confirmPartialExecution(Contract contract, ArrayList<Breach> breaches) {
-        return false;
+    public boolean confirmPartialExecution(Contract contract, List<Breach> breaches) {
+        return true;
     }
 
     @Override
-    public void onProductionFailure(ArrayList<ProductionFailure> failures) {
+    public void onProductionFailure(List<ProductionFailure> failures) {
 
     }
 
     @Override
     public boolean confirmLoan(Loan loan, boolean bankruptIfRejected) {
-        return false;
+        return bankruptIfRejected;
     }
 
     @Override
     public boolean confirmContractExecution(Contract contract) {
-        return false;
+        return true;
     }
 
     @Override
-    public SAONegotiator onNegotiationRequest(CFP cfp, String partner) {
+    public SAONegotiator respondToNegotiationRequest(CFP cfp, String partner) {
         return null;
     }
 
     @Override
-    public void onNegotiationSuccess(Contract contract, PythonMechanismInfo mechanism) {
+    public void onNegotiationSuccess(Contract contract, PythonAgentMechanismInterface mechanism) {
 
     }
 
     @Override
-    public void onNegotiationFailure(ArrayList<String> partners, HashMap<String, Object> annotation, PythonMechanismInfo mechanism, MechanismState state) {
+    public void onNegotiationFailure(List<String> partners, Map<String, Object> annotation
+            , PythonAgentMechanismInterface mechanism, MechanismState state) {
 
     }
 
@@ -86,7 +97,12 @@ public class DoNothingFactoryManager extends BaseFactoryManager {
     }
 
     @Override
-    public void onContractCancelled(Contract contract, ArrayList<String> rejectors) {
+    public void onContractCancelled(Contract contract, List<String> rejectors) {
+
+    }
+
+    @Override
+    public void onNewReport(FinancialReport report) {
 
     }
 
@@ -96,19 +112,18 @@ public class DoNothingFactoryManager extends BaseFactoryManager {
     }
 
     @Override
-    public RenegotiationRequest setRenegotiationAgenda(Contract contract, ArrayList<HashMap<String, Breach>> breaches) {
+    public RenegotiationRequest setRenegotiationAgenda(Contract contract, List<Map<String, Breach>> breaches) {
         return null;
     }
 
     @Override
-    public SAONegotiator respondToRenegotiationRequest(Contract contract, ArrayList<HashMap<String, Breach>> breaches, RenegotiationRequest agenda) {
+    public SAONegotiator respondToRenegotiationRequest(Contract contract, List<Map<String, Breach>> breaches
+            , RenegotiationRequest agenda) {
         return null;
     }
 
     @Override
-    public boolean onRenegotiationRequest(Contract contract, CFP cfp, String partner) {
-        return false;
+    public boolean requestNegotiation(CFP cfp, SAONegotiator negotiator, UtilityFunction ufun) {
+        return super.requestNegotiation(cfp, negotiator, ufun);
     }
-
-
 }

@@ -14,7 +14,7 @@ public class Product implements PyCopyable {
     }
 
     /*@Override
-    public void fromMap(HashMap<String, Object> dict) {
+    public void fromMap(Map<String, Object> dict) {
         id = (int) dict.get("id");
         productionLevel = (int) dict.get("productionLevel");
         name = (String) dict.get("name");
@@ -23,8 +23,8 @@ public class Product implements PyCopyable {
     }
 
     @Override
-    public HashMap<String, Object> toMap() {
-        HashMap<String, Object> map = new HashMap<>();
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new HashMap<>();
         map.put("id", id);
         map.put("productionLevel", productionLevel);
         map.put("name", name);

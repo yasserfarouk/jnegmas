@@ -9,15 +9,15 @@ public class InputOutput implements PyCopyable {
 
     /*
     @Override
-    public void fromMap(HashMap<String, Object> dict) {
+    public void fromMap(Map<String, Object> dict) {
         product = (int) dict.get("product");
         quantity = (int) dict.get("quantity");
         step = (double) dict.get("step");    
     }
 
     @Override
-    public HashMap<String, Object> toMap() {
-        HashMap<String, Object> map = new HashMap<>();
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new HashMap<>();
         map.put("product", product);
         map.put("quantity", quantity);
         map.put("step", step);

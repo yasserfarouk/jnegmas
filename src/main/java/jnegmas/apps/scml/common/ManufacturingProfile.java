@@ -14,7 +14,7 @@ public class ManufacturingProfile implements PyCopyable {
 
     /*
     @Override
-    public void fromMap(HashMap<String, Object> dict) throws IllegalAccessException, NoSuchFieldException, InstantiationException {
+    public void fromMap(Map<String, Object> dict) throws IllegalAccessException, NoSuchFieldException, InstantiationException {
         nSteps = (int) dict.get("nSteps");
         cost = (double) dict.get("cost");
         initialPauseCost = (double) dict.get("initialPauseCost");
@@ -23,12 +23,12 @@ public class ManufacturingProfile implements PyCopyable {
         cancellationCost = (double) dict.get("cancellationCost");
         line = (int) dict.get("line");
         process = new Process();
-        process.fromMap((HashMap<String, Object>) dict.get("process"));
+        process.fromMap((Map<String, Object>) dict.get("process"));
     }
 
     @Override
-    public HashMap<String, Object> toMap() throws IllegalAccessException {
-        HashMap<String, Object> map = new HashMap<>();
+    public Map<String, Object> toMap() throws IllegalAccessException {
+        Map<String, Object> map = new HashMap<>();
         map.put("nSteps", nSteps);
         map.put("cost", cost);
         map.put("initialPauseCost", initialPauseCost);

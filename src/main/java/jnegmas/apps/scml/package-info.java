@@ -13,7 +13,7 @@ package jnegmas.apps.scml;
  *     <li>sign contracts that are to be signed at this step calling `onContractSigned` as needed</li>
  *     <li>step all existing negotiations `negotiationSpeedMultiple` times handling any failed negotiations and creating
  *        contracts for any resulting agreements</li>
- *     <li>run all `ActiveEntity` objects registered (i.e. all agents). `Consumer` s run first then `FactoryManager` s then
+ *     <li>run all `ActiveEntity` objects registered (i.aspirationType. all agents). `Consumer` s run first then `FactoryManager` s then
  *        `Miner` s</li>
  *     <li>execute contracts that are executable at this time-step handling any breaches</li>
  *     <li>Custom Simulation Steps<ol>

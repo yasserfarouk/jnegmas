@@ -1,55 +1,76 @@
 package jnegmas.sao;
 
+
 import jnegmas.negotiators.Controller;
 
-import java.util.HashMap;
 
 public class AspirationNegotiator extends PythonSAONegotiator {
+    public double maxAspiration;
+    public double aspirationType;
+    public boolean dynamicUfun;
+    public boolean randomizeOffer;
+    public boolean canPropose;
+    public boolean assumeNormalized;
 
-    public AspirationNegotiator() throws NoSuchFieldException {
+    public AspirationNegotiator(double maxAspiration, String aspirationType, boolean dynamicUfun, boolean randomizeOffer
+            , boolean canPropose, boolean assumeNormalized) throws IllegalAccessException, NoSuchFieldException {
         super();
-        createPythonShadow(new HashMap<>());
+        this.maxAspiration = maxAspiration;
+        this.aspirationType = aspirationType == "boulware"? 10.0 : aspirationType == "conceder"? .4 : 1.0;
+        this.dynamicUfun = dynamicUfun;
+        this.randomizeOffer = randomizeOffer;
+        this.canPropose = canPropose;
+        this.assumeNormalized = assumeNormalized;
+        createPythonShadow(this.toMap());
+    }
+    public AspirationNegotiator(SAONegotiator pythonObject, String name, Controller parent, double maxAspiration
+            , String aspirationType, boolean dynamicUfun, boolean randomizeOffer, boolean canPropose
+            , boolean assumeNormalized) throws IllegalAccessException, NoSuchFieldException {
+        super(pythonObject, name, parent);
+        this.maxAspiration = maxAspiration;
+        this.aspirationType = aspirationType == "boulware"? 10.0 : aspirationType == "conceder"? .4 : 1.0;
+        this.dynamicUfun = dynamicUfun;
+        this.randomizeOffer = randomizeOffer;
+        this.canPropose = canPropose;
+        this.assumeNormalized = assumeNormalized;
+        createPythonShadow(this.toMap());
     }
 
-    public AspirationNegotiator(String name, Controller parent, double maxAspiration, String aspirationType
-            , boolean dynamicUfun, boolean randomizeOffer, boolean canPropose, boolean assumeNormalized) throws NoSuchFieldException {
-        super();
-        createPythonShadow(new HashMap<String, Object>() {{
-            put("name", name);
-            put("parent", parent);
-            put("maxAspiration", maxAspiration);
-            put("aspirationType", aspirationType);
-            put("dynamicUfun", dynamicUfun);
-            put("randomizeOffer", randomizeOffer);
-            put("canPropose", canPropose);
-            put("assumeNormalized", assumeNormalized);
-        }});
+
+    public AspirationNegotiator(SAONegotiator pythonObject, String name, Controller parent, double maxAspiration
+            , double aspirationType, boolean dynamicUfun, boolean randomizeOffer, boolean canPropose
+            , boolean assumeNormalized) throws IllegalAccessException, NoSuchFieldException {
+        super(pythonObject, name, parent);
+        this.maxAspiration = maxAspiration;
+        this.aspirationType = aspirationType;
+        this.dynamicUfun = dynamicUfun;
+        this.randomizeOffer = randomizeOffer;
+        this.canPropose = canPropose;
+        this.assumeNormalized = assumeNormalized;
+        createPythonShadow(this.toMap());
     }
 
-    public AspirationNegotiator(String name, Controller parent, double maxAspiration, double aspirationType
-            , boolean dynamicUfun, boolean randomizeOffer, boolean canPropose, boolean assumeNormalized) throws NoSuchFieldException {
+    public AspirationNegotiator(double maxAspiration, double aspirationType, boolean dynamicUfun, boolean randomizeOffer
+            , boolean canPropose, boolean assumeNormalized) throws IllegalAccessException, NoSuchFieldException {
         super();
-        createPythonShadow(new HashMap<String, Object>() {{
-            put("name", name);
-            put("parent", parent);
-            put("maxAspiration", maxAspiration);
-            put("aspirationType", aspirationType);
-            put("dynamicUfun", dynamicUfun);
-            put("randomizeOffer", randomizeOffer);
-            put("canPropose", canPropose);
-            put("assumeNormalized", assumeNormalized);
-        }});
+        this.maxAspiration = maxAspiration;
+        this.aspirationType = aspirationType;
+        this.dynamicUfun = dynamicUfun;
+        this.randomizeOffer = randomizeOffer;
+        this.canPropose = canPropose;
+        this.assumeNormalized = assumeNormalized;
+        createPythonShadow(this.toMap());
     }
 
-    public AspirationNegotiator(String name) throws NoSuchFieldException {
+
+    public AspirationNegotiator() throws NoSuchFieldException, IllegalAccessException {
         super();
-        createPythonShadow(new HashMap<String, Object>() {{
-            put("name", name);
-        }});
+        createPythonShadow(this.toMap());
     }
 
-    public AspirationNegotiator(SAONegotiator shadow) {
-
+    public AspirationNegotiator(SAONegotiator shadow) throws IllegalAccessException, NoSuchFieldException {
         super(shadow);
+        createPythonShadow(this.toMap());
     }
+
 }

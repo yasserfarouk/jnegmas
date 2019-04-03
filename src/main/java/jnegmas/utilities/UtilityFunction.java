@@ -1,7 +1,7 @@
 package jnegmas.utilities;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public interface UtilityFunction{
-    Double call(HashMap<String, Object> outcome);
+    Double call(Map<String, Object> outcome);
 }

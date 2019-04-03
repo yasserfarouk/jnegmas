@@ -3,8 +3,9 @@ package jnegmas.apps.scml.common;
 import jnegmas.PyCopyable;
 
 import java.util.HashMap;
+import java.util.Map;
 
-public class SCMLAgreement extends HashMap<String, Object> implements PyCopyable {
+public class SCMLAgreement implements PyCopyable {
     public int time;
     public double unitPrice;
     public int quantity;
@@ -15,19 +16,19 @@ public class SCMLAgreement extends HashMap<String, Object> implements PyCopyable
     public String getPythonClassName() {
         return getClass().getName().substring(1);
     }
-
+/*
     @Override
-    public void fromMap(HashMap<String, Object> dict) {
-        time = (int) dict.get("time");
-        unitPrice = (double) dict.get("unitPrice");
-        quantity = (int) dict.get("quantity");
-        penalty = (Integer) dict.get("penalty");
-        signingDelay = (int) dict.get("signingDelay");
+    public void fromMap(Map<String, Object> map) {
+        time = (int) map.get("time");
+        unitPrice = (double) map.get("unitPrice");
+        quantity = (int) map.get("quantity");
+        penalty = (Integer) map.get("penalty");
+        signingDelay = (int) map.get("signingDelay");
     }
 
     @Override
-    public HashMap<String, Object> toMap() {
-        HashMap<String, Object> map = new HashMap<>();
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new HashMap<>();
         map.put("time", time);
         map.put("unitPrice", unitPrice);
         map.put("quantity", quantity);
@@ -35,4 +36,5 @@ public class SCMLAgreement extends HashMap<String, Object> implements PyCopyable
         map.put("signingDelay", signingDelay);
         return map;
     }
+    */
 }

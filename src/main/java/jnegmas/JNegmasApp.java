@@ -8,7 +8,10 @@ import javax.net.SocketFactory;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class JNegmasApp {
 
@@ -16,18 +19,28 @@ public class JNegmasApp {
     private static final int DEFAULT_JAVA_PORT = 25333;
     private static final int DEFAULT_PYTHON_PORT = 25334;
     public static PyEntryPoint python;
+    private static int nCreateJava, nCreatePython, nToFromMap;
 
-    public static<T extends PyCopyable> T fromMap(T object, HashMap<String, Object> dict) throws NoSuchFieldException
+    public static void update_display(){
+        System.out.format("\r%07d Java Objects\t%07d Python Objects\t %07d Copies"
+                , nCreateJava, nCreatePython, nToFromMap);
+    }
+
+    public static<T extends PyCopyable> T fromMap(T object, Map<String, Object> dict) throws NoSuchFieldException
             , IllegalAccessException, InstantiationException {
+        nToFromMap++;
+        update_display();
         if (dict.keySet().contains(PYTHON_CLASS_IDENTIFIER))
             dict.remove(PYTHON_CLASS_IDENTIFIER);
         object.fromMap(dict);
         return object;
     }
-    public static HashMap<String, Object> toMap(PyCopyable object) throws IllegalAccessException {
+    public static Map<String, Object> toMap(PyCopyable object) throws IllegalAccessException {
+        nToFromMap++;
+        update_display();
         if (object == null)
             return null;
-        HashMap<String, Object> map = object.toMap();
+        Map<String, Object> map = object.toMap();
         map.put(JNegmasApp.PYTHON_CLASS_IDENTIFIER, object.getPythonClassName());
         return map;
     }
@@ -42,13 +55,15 @@ public class JNegmasApp {
      *
      *
      */
-    public static PyCopyable createJavaObjectFromMap(HashMap<String, Object> map) throws NoSuchFieldException
+    public static Object createJavaObjectFromMap(Map<String, Object> map) throws NoSuchFieldException
             , IllegalArgumentException {
+        nCreateJava++;
+        update_display();
         if (map == null){
             throw new RuntimeException("Cannot create a java object from map without a map!!");
         }
         if (!map.containsKey(JNegmasApp.PYTHON_CLASS_IDENTIFIER)){
-            throw new IllegalArgumentException();
+            return map;
         }
         String javaClassName = String.format("j%s", map.get(JNegmasApp.PYTHON_CLASS_IDENTIFIER));
         return createJavaObjectFromMap(javaClassName, map);
@@ -63,14 +78,20 @@ public class JNegmasApp {
      * @throws NoSuchFieldException if the class that should be instantiated has a field not in the map
      * @throws IllegalArgumentException if the map does not contain the class name to be instantiated as the value for key `JNegmasApp.PYTHON_CLASS_IDENTIFIER`
      */
-    public static PyCopyable createJavaObjectFromMap(String javaClassName
-            , HashMap<String, Object> map) throws NoSuchFieldException, IllegalArgumentException {
+    public static Object createJavaObjectFromMap(String javaClassName
+            , Map<String, Object> map) throws NoSuchFieldException, IllegalArgumentException {
+        nCreateJava++;
+        update_display();
         try {
             Class<?> cls = Class.forName(javaClassName);
+            Object object;
             if (PyCopyable.class.isAssignableFrom(cls)){
-                return JNegmasApp.fromMap((PyCopyable) cls.newInstance(), map);
+                object = JNegmasApp.fromMap((PyCopyable) cls.newInstance(), map);
+            }else {
+                System.out.format("creating %s which is not callable or constructable", javaClassName);
+                object = cls.newInstance();
             }
-            throw new InstantiationException(String.format("Class %s is not PyCopyable", cls.getName()));
+            return object;
         } catch (IllegalAccessException | InstantiationException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -84,14 +105,35 @@ public class JNegmasApp {
      * @param kwargs The parameters to be passed to the constructor
      * @return An object that represents a python object to be called later.
      */
-    public static Object createPythonObjectFromMap(String pythonClassName, HashMap<String, Object> kwargs) {
+    public static Object createPythonObjectFromMap(String pythonClassName, Map<String, Object> kwargs) {
+        nCreatePython++;
+        update_display();
         return python.create(pythonClassName, kwargs);
     }
 
-    public Object create(String className){
-        System.out.format("Creating %s\n", className);
+    /**
+     * Creates a python object (in the python program connected through the gateway).
+     *
+     * @param pythonClassName The full name of the class of which an object is to be created
+     * @param kwargs The parameters to be passed to the constructor
+     * @return An object that represents a python object to be called later.
+     */
+    public static Object createPythonShadowFromMap(String pythonClassName, Map<String, Object> kwargs) {
+        nCreatePython++;
+        update_display();
+        return python.create_shadow(pythonClassName, kwargs);
+    }
+
+    public static Object create(String className){
+        //System.out.format("Creating %s\n", className);
+        nCreateJava++;
+        update_display();
         try {
             Class<?> clazz = Class.forName(className);
+            if (clazz == null) {
+                System.out.format("Failed to create %s", className);
+                return null;
+            }
             return clazz.newInstance();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
@@ -103,9 +145,29 @@ public class JNegmasApp {
         return null;
     }
 
+    public static Object genericToMap(Object v) throws IllegalAccessException {
+        if (v == null) return v;
+        if (PyCopyable.class.isAssignableFrom(v.getClass()))
+            return ((PyCopyable) v).toMap();
+        if (List.class.isAssignableFrom(v.getClass())){
+            ArrayList results = new ArrayList();
+            for(Object item: (List) v){
+                results.add(genericToMap(item));
+            }
+            return results;
+        }
+        if (Map.class.isAssignableFrom(v.getClass())){
+            Map<String, Object> map = new HashMap<>();
+            Map<String, Object> inmap = (Map<String, Object>) v;
+            for(String key: inmap.keySet()){
+                map.put(key, genericToMap(inmap.get(key)));
+            }
+            return map;
+        }
+        return v;
+    }
 
     public PyCaller create(String className, Object pythonObject){
-        System.out.format("Creating %s with python object\n", className);
         PyCaller javaObject = (PyCaller) create(className);
         javaObject.setPythonShadow(pythonObject);
         return javaObject;

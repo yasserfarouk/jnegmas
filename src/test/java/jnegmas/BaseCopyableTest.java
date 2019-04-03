@@ -7,6 +7,8 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -22,7 +24,7 @@ public class BaseCopyableTest {
 
     @Test
     public void fromMap() throws NoSuchFieldException, IllegalAccessException, InstantiationException {
-        HashMap<String, Object> breachMap = new HashMap<String, Object>(){{
+        Map<String, Object> breachMap = new HashMap<String, Object>(){{
             put("perpetrator", "partner 1");
             put("type", "product");
             put("level", 0.5);
@@ -47,11 +49,11 @@ public class BaseCopyableTest {
                     put("buyer", "partner 1");
                     put("seller", "partner 2");
                 }});
-                put("issues", new ArrayList<HashMap<String, Object>>(){{
+                put("issues", new ArrayList<Map<String, Object>>(){{
                     add(new HashMap<String, Object>(){{
                         put("name", "time");
                         put("type", 1);
-                        put("values", new ArrayList<Integer>(){{
+                        put("getValues", new ArrayList<Integer>(){{
                             add(1); add(2); add(3); add(4); add(5);
                         }});
                     }});
@@ -84,14 +86,19 @@ public class BaseCopyableTest {
                         put("quantity", 3);
                     }});
                     put("errorDetails", "");
-                    put("info", new HashMap<String, Object>(){{
+                }});
+            }});
+
+        }};
+        /*
+        put("info", new HashMap<String, Object>(){{
                         put("id", "9876");
                         put("nOutcomes", 10);
-                        put("issues", new ArrayList<HashMap<String, Object>>(){{
+                        put("issues", new ArrayList<Map<String, Object>>(){{
                             add(new HashMap<String, Object>(){{
                                 put("name", "time");
                                 put("type", 1);
-                                put("values", new ArrayList<Integer>(){{
+                                put("getValues", new ArrayList<Integer>(){{
                                     add(1); add(2); add(3); add(4); add(5);
                                 }});
                             }});
@@ -121,17 +128,12 @@ public class BaseCopyableTest {
                             put("seller", "partner 2");
                         }});
                     }});
-                }});
-            }});
-
-        }};
-
+        */
         Breach breach = new Breach();
         breach.fromMap(breachMap);
         assertEquals("partner 1", breach.perpetrator);
         assertEquals(4, (int)breach.contract.toBeSignedAt);
-        assertTrue(breach.contract.state.started);
-        assertEquals("9876", breach.contract.state.info.id);
+        assertTrue(breach.contract.mechanismState.started);
     }
 
     @Test
