@@ -1,5 +1,3 @@
-package jnegmas;
-
 /**
  * Provides classes necessary for connecting to NegMAS worlds.
  * <p>
@@ -28,3 +26,5 @@ package jnegmas;
  *
  * @author Yasser Mohammad
  */
+package jnegmas;
+

@@ -1,5 +1,3 @@
-package jnegmas.apps.scml;
-
 /**
  * The implementation file for all entities needed for ANAC-SCML 2019.
  *
@@ -7,7 +5,7 @@ package jnegmas.apps.scml;
  *
  * Participants can optionally override any other methods of this class or implement new `NegotiatorUtility` class.
  *
- * <h2> Simulation steps</h2> 
+ * <h2> Simulation steps</h2>
  * <ol>
  *     <li>prepare custom stats (call `_preStepStats`)</li>
  *     <li>sign contracts that are to be signed at this step calling `onContractSigned` as needed</li>
@@ -83,3 +81,5 @@ package jnegmas.apps.scml;
  *            of production with delivery at *t* later than *t-2* (and that is optimistic).</li>
  *  </ol>
  */
+package jnegmas.apps.scml;
+
