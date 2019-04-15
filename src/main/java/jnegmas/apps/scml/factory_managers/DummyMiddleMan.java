@@ -104,16 +104,16 @@ public class DummyMiddleMan extends DoNothingFactoryManager {
     public void onContractSigned(Contract contract) {
         //System.out.format("Contract secured: %%: ", contract);
         if(contract.annotation.get("seller") == this.id){
-            System.out.format("I am a seller\n");
+            // System.out.format("I am a seller\n");
             CFP contractCFP = ((CFP)contract.annotation.get("cfp"));
             CFP cfp = new CFP(true, id, contractCFP.product
                     , awi.getCurrentStep(), (int) (contract.agreement.get("time")), 1
                     , (int) (contract.agreement.get("quantity")), 0.0
                     , (double) (contract.agreement.get("unit_price")));
             awi.registerCFP(cfp);
-        }else{
-            System.out.format("I am a buyer\n");
-        }
+        }//else{
+            //System.out.format("I am a buyer\n");
+        //}
     }
 
     @Override
