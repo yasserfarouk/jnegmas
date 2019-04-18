@@ -21,6 +21,9 @@ class ProductInfo {
     public double sellingPrice = -1.0;
 }
 
+/**
+ * The utility function used by DummyMiddleMan negotiators
+ */
 class DummyMiddleManUFun implements UtilityFunction{
     DummyMiddleMan parent;
     CFP cfp;
@@ -44,6 +47,14 @@ class DummyMiddleManUFun implements UtilityFunction{
     }
 }
 
+/**
+ * A simple middle-man agent.
+ *
+ * This factory manager tries to secure sell contracts for any products then tries to buy whatever
+ * quantities it needs to honor these contracts at a lower price. It does not do any production.
+ *
+ * It is an example of a factory manager that inherits from DoNothingFactoryManager
+ */
 public class DummyMiddleMan extends DoNothingFactoryManager {
 
     ProductInfo[] infos;

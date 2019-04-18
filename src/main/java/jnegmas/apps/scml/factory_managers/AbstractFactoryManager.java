@@ -42,29 +42,22 @@ public abstract class AbstractFactoryManager extends PyCaller<FactoryManager> im
         super();
     }
 
+    public AbstractFactoryManager(FactoryManager pythonObject, String name) {
+        super(pythonObject);
+        this.id = pythonObject.getID();
+        this.name = name;
+    }
+
+    public AbstractFactoryManager(FactoryManager pythonObject) {
+        super(pythonObject);
+        this.id = pythonObject.getID();
+        this.name = pythonObject.getName();
+    }
+
     public void fromMap(Map<String, Object> dict) throws IllegalAccessException, NoSuchFieldException, InstantiationException {
         FactoryManager.super.fromMap(dict);
         awi = new PythonSCMLAWI((SCMLAWI) dict.get("awi"));
         simulator = new PythonFactorySimulator((FactorySimulator) dict.get("simulator"));
-
-        /*id = (String) dict.get("id");
-        transportationDelay = (int) dict.get("transportationDelay");
-        currentStep = (int) dict.get("currentStep");
-        maxStorage = (int) dict.get("maxStorage");
-        simulatorType = (String) dict.get("simulatorType");
-        immediateNegotiations = (boolean) dict.get("immediateNegotiations");
-        negotiationSpeedMultiple = (int) dict.get("negotiationSpeedMultiple");
-        lineProfiles = (Map<Integer, ManufacturingProfileCompiled>) dict.get("lineProfiles");
-        processProfiles = (Map<Integer, ManufacturingProfileCompiled>) dict.get("processProfiles");
-        producing = (Map<Integer, List<ProductManufacturingInfo>>) dict.get("producing");
-        consuming = (Map<Integer, List<ProductManufacturingInfo>>) dict.get("consuming");
-        compiledProfiles = (List<ManufacturingProfileCompiled>) dict.get("compiledProfiles");
-        products = (List<Product>) dict.get("products");
-        processes = (List<Process>) dict.get("processes");
-        contracts = (List<Contract>) dict.get("contracts");
-        interestingProducts = (List<Integer>) dict.get("interestingProducts");
-        name = (String) dict.get("name");
-        */
     }
 
     /* Getters and Setters */
@@ -97,16 +90,8 @@ public abstract class AbstractFactoryManager extends PyCaller<FactoryManager> im
         return processes;
     }
 
-    public List<Integer> getInterestingProducts() {
-        return interestingProducts;
-    }
-
     public List<Contract> getContracts() {
         return contracts;
-    }
-
-    public String getName() {
-        return name;
     }
 
     @Override
@@ -140,38 +125,28 @@ public abstract class AbstractFactoryManager extends PyCaller<FactoryManager> im
         this.simulator = new PythonFactorySimulator(value);
     }
 
-    /*
-    String addNegotiationRequestinfo(List<Issue> issues, List<String> partners, Map<String, Object> annotation
-    , Negotiator negotiator, Map<String, Object> extra){
-        String reqId = Utils.randomString(18);
-        requestedNegotiations.put(reqId, new NegotiationRequestInfo(issues, partners, annotation, negotiator, extra
-                , reqId));
-        return reqId;
-    }
-    */
     @Override
     public boolean requestNegotiation(CFP cfp, SAONegotiator negotiator, UtilityFunction ufun) {
         return shadow.requestNegotiation(cfp, negotiator, ufun);
-        /*
-        if(negotiator != null && ufun != null){
-            negotiator.setUtilityFunction(ufun);
-        }
-        List<String> partners = new ArrayList<String>();
-        partners.add(this.getID());
-        partners.add(cfp.publisher);
-
-        String reqId = addNegotiationRequestinfo(cfp.getIssues(), partners
-                , null, negotiator, null);
-        return this.awi.requestNegotiation(cfp, reqId);
-        */
     }
 
+    @Override
     public String getID() {
         return id;
     }
 
+    @Override
     public void setID(String id) {
         this.id = id;
+    }
+
+    @Override
+    public String getName() {
+        return name;}
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
     }
 }
 

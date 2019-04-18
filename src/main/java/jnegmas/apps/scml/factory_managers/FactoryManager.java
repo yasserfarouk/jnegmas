@@ -93,4 +93,9 @@ public interface FactoryManager extends PyCopyable, PyCallable {
 
     List<NegotiationRequestInfo> getRunningNegotiations();
 
+    void setID(String id);
+    String getID();
+
+    void setName(String id);
+    String getName();
 }
