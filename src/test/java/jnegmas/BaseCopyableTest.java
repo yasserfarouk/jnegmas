@@ -70,7 +70,7 @@ public class BaseCopyableTest {
                 put("signatures", new ArrayList<String>(){{
                     add("partner 1"); add("partner 2");
                 }});
-                put("state", new HashMap<String, Object>(){{
+                put("mechanismState", new HashMap<String, Object>(){{
                     put("running", false);
                     put("started", true);
                     put("broken", false);
