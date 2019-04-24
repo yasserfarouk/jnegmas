@@ -137,13 +137,13 @@ public class DummyMiddleMan extends DoNothingFactoryManager {
         } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
         }
-        System.out.format("I will reject the negotiation!!");
+        //System.out.format("I will reject the negotiation!!");
         return null;
     }
 
     @Override
     public void onContractCancelled(Contract contract, List<String> rejectors) {
-        System.out.format("Contract cancelled: %%: ", contract);
+        //System.out.format("Contract cancelled: %%: ", contract);
     }
 
     @Override

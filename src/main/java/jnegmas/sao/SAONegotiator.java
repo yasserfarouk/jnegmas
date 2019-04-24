@@ -50,6 +50,8 @@ public interface SAONegotiator extends PyCallable, Negotiator, PyCopyable {
     default void onPartnerResponse(SAOState state, String agentId, Map<String, Object> offer
             , int response, Map<String, Object> counterOffer){}
 
+    default void onUfunChanged() {}
+
     default void onNotification(Map<String, Object> notification, String notifier){}
 
     void setUtilityFunction(UtilityFunction ufun);

@@ -109,6 +109,11 @@ public class PythonSAONegotiator extends PyCaller<SAONegotiator> implements SAON
     }
 
     @Override
+    public void onUfunChanged() {
+        shadow.onUfunChanged();
+    }
+
+    @Override
     public UtilityFunction getUtilityFunction() {
 
         return shadow.getUtilityFunction();
