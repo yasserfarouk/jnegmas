@@ -2,11 +2,9 @@ package jnegmas.apps.scml.factory_managers;
 
 import jnegmas.apps.scml.common.CFP;
 import jnegmas.apps.scml.common.Product;
-import jnegmas.common.AgentMechanismInterface;
 import jnegmas.common.MechanismState;
 import jnegmas.common.PythonAgentMechanismInterface;
 import jnegmas.sao.AspirationNegotiator;
-import jnegmas.sao.RandomNegotiator;
 import jnegmas.sao.SAONegotiator;
 import jnegmas.situated.Breach;
 import jnegmas.situated.Contract;

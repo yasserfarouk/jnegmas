@@ -65,6 +65,11 @@ public class DoNothingFactoryManager extends AbstractFactoryManager {
     }
 
     @Override
+    public void onProductionSuccess(List<ProductionReport> reports) {
+
+    }
+
+    @Override
     public boolean confirmLoan(Loan loan, boolean bankruptIfRejected) {
         return bankruptIfRejected;
     }
@@ -93,6 +98,26 @@ public class DoNothingFactoryManager extends AbstractFactoryManager {
 
     @Override
     public void onContractSigned(Contract contract) {
+
+    }
+
+    @Override
+    public void onContractExecuted(Contract contract) {
+
+    }
+
+    @Override
+    public void onContractBreached(Contract contract, List<Breach> breaches, Contract resolution) {
+
+    }
+
+    @Override
+    public void onCashTransfer(double amount, String cause) {
+
+    }
+
+    @Override
+    public void onInventoryChange(int product, int quantity, String cause) {
 
     }
 

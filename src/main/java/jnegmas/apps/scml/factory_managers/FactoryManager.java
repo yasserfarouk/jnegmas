@@ -47,6 +47,8 @@ public interface FactoryManager extends PyCopyable, PyCallable {
 
     void onProductionFailure(List<ProductionFailure> failures);
 
+    void onProductionSuccess(List<ProductionReport> reports);
+
     boolean confirmLoan(Loan loan, boolean bankruptIfRejected);
 
     boolean confirmContractExecution(Contract contract);
@@ -63,6 +65,14 @@ public interface FactoryManager extends PyCopyable, PyCallable {
 
 
     void onContractSigned(Contract contract);
+
+    void onContractExecuted(Contract contract);
+
+    void onContractBreached(Contract contract, List<Breach> breaches, Contract resolution);
+
+    void onCashTransfer(double amount, String cause);
+
+    void onInventoryChange(int product, int quantity, String cause);
 
 
     void onContractCancelled(Contract contract, List<String> rejectors);

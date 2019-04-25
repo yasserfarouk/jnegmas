@@ -75,6 +75,11 @@ public class PythonFactoryManager extends AbstractFactoryManager {
     }
 
     @Override
+    public void onProductionSuccess(List<ProductionReport> reports) {
+        shadow.onProductionSuccess(reports);
+    }
+
+    @Override
     public boolean confirmLoan(Loan loan, boolean bankruptIfRejected) {
         return shadow.confirmLoan(loan, bankruptIfRejected);
     }
@@ -102,6 +107,26 @@ public class PythonFactoryManager extends AbstractFactoryManager {
     @Override
     public void onContractSigned(Contract contract) {
         shadow.onContractSigned(contract);
+    }
+
+    @Override
+    public void onContractExecuted(Contract contract) {
+        shadow.onContractExecuted(contract);
+    }
+
+    @Override
+    public void onContractBreached(Contract contract, List<Breach> breaches, Contract resolution) {
+        shadow.onContractBreached(contract, breaches, resolution);
+    }
+
+    @Override
+    public void onCashTransfer(double amount, String cause) {
+        shadow.onCashTransfer(amount, cause);
+    }
+
+    @Override
+    public void onInventoryChange(int product, int quantity, String cause) {
+        shadow.onInventoryChange(product, quantity, cause);
     }
 
     @Override
