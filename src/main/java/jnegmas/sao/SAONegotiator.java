@@ -28,31 +28,31 @@ public interface SAONegotiator extends PyCallable, Negotiator, PyCopyable {
     boolean join(PythonAgentMechanismInterface info, SAOState state, UtilityFunction ufun, String role);
 
 
-    default void onNegotiationStart(SAOState state){}
+    void onNegotiationStart(SAOState state);
 
-    default void onRoundStart(SAOState state){}
+    void onRoundStart(SAOState state);
 
-    default void onMechanismError(SAOState state){}
+    void onMechanismError(SAOState state);
 
-    default void onRoundEnd(SAOState state){}
+    void onRoundEnd(SAOState state);
 
-    default void onLeave(SAOState state){}
+    void onLeave(SAOState state);
 
-    default void onNegotiationEnd(SAOState state){}
+    void onNegotiationEnd(SAOState state);
 
 
     // SAO specific call backs
 
-    default void onPartnerProposal(SAOState state, String agentId, Map<String, Object> offer){}
+    void onPartnerProposal(SAOState state, String agentId, Map<String, Object> offer);
 
-    default void onPartnerRefusedToPropose(SAOState state, String agentId){}
+    void onPartnerRefusedToPropose(SAOState state, String agentId);
 
-    default void onPartnerResponse(SAOState state, String agentId, Map<String, Object> offer
-            , int response, Map<String, Object> counterOffer){}
+    void onPartnerResponse(SAOState state, String agentId, Map<String, Object> offer
+            , int response, Map<String, Object> counterOffer);
 
-    default void onUfunChanged() {}
+    void onUfunChanged();
 
-    default void onNotification(Map<String, Object> notification, String notifier){}
+    void onNotification(Map<String, Object> notification, String notifier);
 
     void setUtilityFunction(UtilityFunction ufun);
     UtilityFunction getUtilityFunction();

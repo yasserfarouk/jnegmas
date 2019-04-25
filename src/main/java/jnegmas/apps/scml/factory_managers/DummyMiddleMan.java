@@ -129,7 +129,7 @@ public class DummyMiddleMan extends DoNothingFactoryManager {
     public SAONegotiator respondToNegotiationRequest(CFP cfp, String partner){
         DummyMiddleManUFun ufun = new DummyMiddleManUFun(this, cfp);
         try {
-            AspirationNegotiator negotiator = new AspirationNegotiator(0.95, "conceder", false, false, true, false);
+            AspirationNegotiator negotiator = new AspirationNegotiator(0.95, "conceder", false, true, false);
             negotiator.setUtilityFunction(ufun);
             return negotiator;
         } catch (NoSuchFieldException | IllegalAccessException e) {
@@ -158,7 +158,7 @@ public class DummyMiddleMan extends DoNothingFactoryManager {
         //negotiator = new RandomNegotiator();
         AspirationNegotiator negotiator = null;
         try {
-            negotiator = new AspirationNegotiator(0.95, "conceder", false, false, true, false);
+            negotiator = new AspirationNegotiator(0.95, "conceder", false, true, false);
             negotiator.setUtilityFunction(ufun);
         } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();

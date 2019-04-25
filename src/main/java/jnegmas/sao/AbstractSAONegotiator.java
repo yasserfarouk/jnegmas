@@ -44,4 +44,60 @@ public abstract class AbstractSAONegotiator implements SAONegotiator {
             return this.utilityFunction.call(outcome);
         return null;
     }
+
+    @Override
+    public void onNegotiationStart(SAOState state) {
+
+    }
+
+    @Override
+    public void onRoundStart(SAOState state) {
+
+    }
+
+    @Override
+    public void onMechanismError(SAOState state) {
+
+    }
+
+    @Override
+    public void onRoundEnd(SAOState state) {
+
+    }
+
+    @Override
+    public void onLeave(SAOState state) {
+
+    }
+
+    @Override
+    public void onNegotiationEnd(SAOState state) {
+
+    }
+
+    @Override
+    public void onPartnerProposal(SAOState state, String agentId, Map<String, Object> offer) {
+
+    }
+
+    @Override
+    public void onPartnerRefusedToPropose(SAOState state, String agentId) {
+
+    }
+
+    @Override
+    public void onPartnerResponse(SAOState state, String agentId, Map<String, Object> offer, int response, Map<String, Object> counterOffer) {
+
+    }
+
+    @Override
+    public void onUfunChanged() {
+
+    }
+
+    @Override
+    public void onNotification(Map<String, Object> notification, String notifier) {
+
+    }
+
 }
