@@ -1,0 +1,11 @@
+.*
+.gradle
+build
+.idea/
+.idea
+out
+py4j
+classes/
+out/
+gradle.properties
+*.bak
